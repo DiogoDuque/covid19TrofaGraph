@@ -9,6 +9,19 @@ export function filterLastNDays(entries: Entry[], n: number) {
   return entries.slice(size-n);
 }
 
+export function derivateEntryValues(entries: Entry[]): Entry[] {
+  let prevEntry = entries[0];
+  const newCasesEntries = [new Entry(prevEntry.dateStr, 0)];
+
+  for(let i=1; i<entries.length; i++) {
+    const currEntry = entries[i];
+    newCasesEntries.push(new Entry(currEntry.dateStr, currEntry.count - prevEntry.count));
+    prevEntry = currEntry;
+  }
+
+  return newCasesEntries;
+}
+
 export function getChartData(entries: Entry[], label: string, chosenTheme: object) {
   return {
     datasets: [{
@@ -53,6 +66,8 @@ export function chartWrapper(chartElement: JSX.Element, classes: any): JSX.Eleme
 
 export default {
   filterLastNDays,
+  processCaseCount2NewCases: derivateEntryValues,
   getChartData,
   getChartOptions,
+  chartWrapper,
 }

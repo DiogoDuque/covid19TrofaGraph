@@ -41,18 +41,20 @@ export function getPortugalData(callback: Function) {
         return response.text();
     })
     .then(responseData => {
-      const northConfirmedEntries: Entry[] = [];
       const ptConfirmedEntries: Entry[] = [];
+      const northConfirmedEntries: Entry[] = [];
+      const ptNewConfirmedEntries: Entry[] = [];
       const stream = new Readable();
       stream.push(responseData);
       stream.push(null);
       stream
         .pipe(Csv())
         .on('data', data => {
-          northConfirmedEntries.push(new Entry(data.data, data.confirmados_arsnorte));
           ptConfirmedEntries.push(new Entry(data.data, data.confirmados));
+          northConfirmedEntries.push(new Entry(data.data, data.confirmados_arsnorte));
+          ptNewConfirmedEntries.push(new Entry(data.data, data.confirmados_novos));
         })
-        .on('end', () => callback(new PortugalEntries(ptConfirmedEntries, northConfirmedEntries)));
+        .on('end', () => callback(new PortugalEntries(ptConfirmedEntries, northConfirmedEntries, ptNewConfirmedEntries)));
     })
     .catch(err => console.error(err));
 }

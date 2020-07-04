@@ -3,50 +3,54 @@ import PropTypes from 'prop-types';
 import { Typography, Grid } from "@material-ui/core";
 import { chartWrapper } from "../utils/chartUtils";
 import DefaultLine from "./DefaultLine";
-import { themeYellow } from "../config/themes";
+import { themeMagenta } from "../config/themes";
 import Entry from "../model/Entry";
 import PortugalEntries from "../model/PortugalEntries";
 
-const NewCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
+const CaseVariationCharts = ({ trofaEntries, ptEntries, classes }) => {
   return (
     <div>
       <Typography variant="h3" style={{ textAlign: 'center' }} gutterBottom>
-        Casos novos
+        Variação de casos
       </Typography>
       <Grid container spacing={3}>
         {chartWrapper(<DefaultLine
           data={trofaEntries}
           datapointsCount={30}
-          label="Casos novos na Trofa"
-          theme={themeYellow}
+          label="Variação de casos na Trofa"
+          theme={themeMagenta}
+          zeroBased={false}
         />, classes)}
         {chartWrapper(<DefaultLine
           data={[]}
           datapointsCount={30}
-          label="Casos novos no Norte"
-          theme={themeYellow}
+          label="Variação de casos no Norte"
+          theme={themeMagenta}
+          zeroBased={false}
         />, classes)}
         {chartWrapper(<DefaultLine
-          data={ptEntries.newConfirmedPt}
+          data={[]}
           datapointsCount={30}
-          label="Casos novos em Portugal"
-          theme={themeYellow}
+          label="Variação de casos em Portugal"
+          theme={themeMagenta}
+          zeroBased={false}
         />, classes)}
         {chartWrapper(<DefaultLine
-          data={ptEntries.newConfirmedPt}
+          data={[]}
           datapointsCount={90}
-          label="Casos novos em Portugal"
-          theme={themeYellow}
+          label="Variação de casos em Portugal"
+          theme={themeMagenta}
+          zeroBased={false}
         />, classes)}
       </Grid>
     </div>
   );
 }
 
-NewCasesCharts.propTypes = {
+CaseVariationCharts.propTypes = {
   trofaEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
   ptEntries: PropTypes.instanceOf(PortugalEntries).isRequired,
   classes: PropTypes.any.isRequired,
 };
 
-export default NewCasesCharts;
+export default CaseVariationCharts;
