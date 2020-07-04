@@ -2,7 +2,7 @@
   "name": "covid19-trofa-graph",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://diogoduque.github.io/covid19trofagraph/",
+  "homepage": "https://diogoduque.github.io/covid19TrofaGraph/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

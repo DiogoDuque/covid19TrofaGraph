@@ -7,38 +7,30 @@ export function filterLastNDays(entries: Entry[], n: number) {
   return entries.slice(size-n);
 }
 
-export function getChartData(entries: Entry[], intervalLabel: string) {
+export function getChartData(entries: Entry[], label: string, chosenTheme: object) {
   return {
     datasets: [{
-      label: intervalLabel,
+      label,
       fill: true,
       lineTension: 0.1,
-      backgroundColor: 'rgba(75,192,192,0.4)',
-      borderColor: 'rgba(75,192,192,1)',
-      pointBorderColor: 'rgba(75,192,192,1)',
       pointBackgroundColor: '#fff',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
       data: entries.map(entry => entry.count),
+      ...chosenTheme,
     }],
     labels: entries.map(entry => entry.dateStr),
   }
 }
 
-export function getChartOptions(text: string, beginAtZero=false) {
+export function getChartOptions(beginAtZero=false, suggestedMin=null) {
   return {
     maintainAspectRatio: false,
-    title: {
-      display: true,
-      fontSize: 15,
-      text,
-    },
     scales: {
       yAxes: [{
         ticks: {
           beginAtZero,
+          suggestedMin,
         }
       }]
     },
