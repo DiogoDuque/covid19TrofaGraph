@@ -23,7 +23,7 @@ export function getChartData(entries: Entry[], label: string, chosenTheme: objec
   }
 }
 
-export function getChartOptions(beginAtZero=false, suggestedMin=null) {
+export function getChartOptions(beginAtZero=false, suggestedMin=null, suggestedMax=null) {
   return {
     maintainAspectRatio: false,
     scales: {
@@ -31,6 +31,7 @@ export function getChartOptions(beginAtZero=false, suggestedMin=null) {
         ticks: {
           beginAtZero,
           suggestedMin,
+          suggestedMax,
         }
       }]
     },

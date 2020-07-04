@@ -8,11 +8,13 @@ const DefaultLine = ({ data, datapointsCount, label, theme }) => {
   const lastNEntries = filterLastNDays(data, datapointsCount);
   const min = Math.min(...lastNEntries.map(e=>e.count));
   const max = Math.max(...lastNEntries.map(e=>e.count));
-  const suggestedMin = Math.round(min - (max-min)/10);
+  const diff = Math.max(max - min, 20);
+  const suggestedMin = Math.round(min - diff/10);
+  const suggestedMax = Math.round(max + diff/10);
   return (
     <Line
-      data={getChartData(lastNEntries, label, theme)}
-      options={getChartOptions(false, suggestedMin)}
+      data={getChartData(lastNEntries, `${label} (${datapointsCount} dias)`, theme)}
+      options={getChartOptions(false, suggestedMin, suggestedMax)}
     />
   );
 }
