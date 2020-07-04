@@ -1,5 +1,5 @@
 # Covid19 @ Trofa
-If you are looking for the dashboard with all the charts, go [here](https://diogoduque.github.io/covid19trofagraph/).
+If you are looking for the dashboard with all the charts, go [here](https://diogoduque.github.io/covid19TrofaGraph/).
 
 This is a small project I made to easily see some simple but specific statistics about the Covid19 state of things in my area.
 
