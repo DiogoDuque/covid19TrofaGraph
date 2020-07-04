@@ -5,9 +5,8 @@ import { chartWrapper } from "../utils/chartUtils";
 import DefaultLine from "./DefaultLine";
 import { themeMagenta } from "../config/themes";
 import Entry from "../model/Entry";
-import PortugalEntries from "../model/PortugalEntries";
 
-const CaseVariationCharts = ({ trofaEntries, ptEntries, classes }) => {
+const CaseVariationCharts = ({ trofaEntries, northEntries, nationalEntries, classes }) => {
   return (
     <div>
       <Typography variant="h3" style={{ textAlign: 'center' }} gutterBottom>
@@ -22,21 +21,21 @@ const CaseVariationCharts = ({ trofaEntries, ptEntries, classes }) => {
           zeroBased={false}
         />, classes)}
         {chartWrapper(<DefaultLine
-          data={[]}
+          data={northEntries}
           datapointsCount={30}
           label="Variação de casos no Norte"
           theme={themeMagenta}
           zeroBased={false}
         />, classes)}
         {chartWrapper(<DefaultLine
-          data={[]}
+          data={nationalEntries}
           datapointsCount={30}
           label="Variação de casos em Portugal"
           theme={themeMagenta}
           zeroBased={false}
         />, classes)}
         {chartWrapper(<DefaultLine
-          data={[]}
+          data={nationalEntries}
           datapointsCount={90}
           label="Variação de casos em Portugal"
           theme={themeMagenta}
@@ -49,7 +48,8 @@ const CaseVariationCharts = ({ trofaEntries, ptEntries, classes }) => {
 
 CaseVariationCharts.propTypes = {
   trofaEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
-  ptEntries: PropTypes.instanceOf(PortugalEntries).isRequired,
+  northEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
+  nationalEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
   classes: PropTypes.any.isRequired,
 };
 

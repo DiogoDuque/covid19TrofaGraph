@@ -34,10 +34,19 @@ const App: () => JSX.Element = (): JSX.Element => {
   const [trofaEntries, setTrofaEntries]: [Entry[], Function] = useState([]);
   const [ptEntries, setPtEntries]: [PortugalEntries, Function] = useState(new PortugalEntries());
 
+  let trofaNewEntries: Entry[] = [];
   let northNewEntries: Entry[] = [];
+  let trofaVariationEntries: Entry[] = [];
+  let northVariationEntries: Entry[] = [];
+  let ptVariationEntries: Entry[] = [];
+
 
   if(!isFetching) {
+    trofaNewEntries = derivateEntryValues(trofaEntries);
     northNewEntries = derivateEntryValues(ptEntries.confirmedNorth);
+    trofaVariationEntries = derivateEntryValues(trofaNewEntries);
+    northVariationEntries = derivateEntryValues(northNewEntries);
+    ptVariationEntries = derivateEntryValues(ptEntries.newConfirmedPt);
   }
 
   useEffect(() => {
@@ -54,8 +63,8 @@ const App: () => JSX.Element = (): JSX.Element => {
     :
     <div className={classes.root}>
       <ConfirmedCasesCharts trofaEntries={trofaEntries} ptEntries={ptEntries} classes={classes} />
-      <NewCasesCharts trofaEntries={derivateEntryValues(trofaEntries)} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
-      <CaseVariationCharts trofaEntries={derivateEntryValues(derivateEntryValues(trofaEntries))} ptEntries={ptEntries} classes={classes} />
+      <NewCasesCharts trofaEntries={trofaNewEntries} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
+      <CaseVariationCharts trofaEntries={trofaVariationEntries} northEntries={northVariationEntries} nationalEntries={ptVariationEntries} classes={classes} />
     </div>
   );
 }
