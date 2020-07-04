@@ -7,7 +7,7 @@ import { themeYellow } from "../config/themes";
 import Entry from "../model/Entry";
 import PortugalEntries from "../model/PortugalEntries";
 
-const NewCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
+const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, classes }) => {
   return (
     <div>
       <Typography variant="h3" style={{ textAlign: 'center' }} gutterBottom>
@@ -21,7 +21,7 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
           theme={themeYellow}
         />, classes)}
         {chartWrapper(<DefaultLine
-          data={[]}
+          data={northEntries}
           datapointsCount={30}
           label="Casos novos no Norte"
           theme={themeYellow}
@@ -45,6 +45,7 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
 
 NewCasesCharts.propTypes = {
   trofaEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
+  northEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
   ptEntries: PropTypes.instanceOf(PortugalEntries).isRequired,
   classes: PropTypes.any.isRequired,
 };
