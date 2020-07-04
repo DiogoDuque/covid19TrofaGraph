@@ -34,6 +34,12 @@ const App: () => JSX.Element = (): JSX.Element => {
   const [trofaEntries, setTrofaEntries]: [Entry[], Function] = useState([]);
   const [ptEntries, setPtEntries]: [PortugalEntries, Function] = useState(new PortugalEntries());
 
+  let northNewEntries: Entry[] = [];
+
+  if(!isFetching) {
+    northNewEntries = derivateEntryValues(ptEntries.confirmedNorth);
+  }
+
   useEffect(() => {
     getTownData('TROFA', setTrofaEntries);
     getPortugalData(setPtEntries);
@@ -48,7 +54,7 @@ const App: () => JSX.Element = (): JSX.Element => {
     :
     <div className={classes.root}>
       <ConfirmedCasesCharts trofaEntries={trofaEntries} ptEntries={ptEntries} classes={classes} />
-      <NewCasesCharts trofaEntries={derivateEntryValues(trofaEntries)} ptEntries={ptEntries} classes={classes} />
+      <NewCasesCharts trofaEntries={derivateEntryValues(trofaEntries)} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
       <CaseVariationCharts trofaEntries={derivateEntryValues(derivateEntryValues(trofaEntries))} ptEntries={ptEntries} classes={classes} />
     </div>
   );
