@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/covid19trofagraph/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/covid19trofagraph/static/js/main.20f6f26e.chunk.js",
-    "main.js.map": "/covid19trofagraph/static/js/main.20f6f26e.chunk.js.map",
-    "runtime-main.js": "/covid19trofagraph/static/js/runtime-main.bb4ebdb3.js",
-    "runtime-main.js.map": "/covid19trofagraph/static/js/runtime-main.bb4ebdb3.js.map",
-    "static/js/2.b6d8deb2.chunk.js": "/covid19trofagraph/static/js/2.b6d8deb2.chunk.js",
-    "static/js/2.b6d8deb2.chunk.js.map": "/covid19trofagraph/static/js/2.b6d8deb2.chunk.js.map",
-    "index.html": "/covid19trofagraph/index.html",
-    "precache-manifest.a4198d2a3004f361aa6b9c6326bc40bb.js": "/covid19trofagraph/precache-manifest.a4198d2a3004f361aa6b9c6326bc40bb.js",
-    "service-worker.js": "/covid19trofagraph/service-worker.js",
-    "static/css/main.5ecd60fb.chunk.css.map": "/covid19trofagraph/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.b6d8deb2.chunk.js.LICENSE.txt": "/covid19trofagraph/static/js/2.b6d8deb2.chunk.js.LICENSE.txt"
+    "main.css": "/covid19TrofaGraph/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/covid19TrofaGraph/static/js/main.4f9bc3e4.chunk.js",
+    "main.js.map": "/covid19TrofaGraph/static/js/main.4f9bc3e4.chunk.js.map",
+    "runtime-main.js": "/covid19TrofaGraph/static/js/runtime-main.fadebc51.js",
+    "runtime-main.js.map": "/covid19TrofaGraph/static/js/runtime-main.fadebc51.js.map",
+    "static/js/2.2a6d54ed.chunk.js": "/covid19TrofaGraph/static/js/2.2a6d54ed.chunk.js",
+    "static/js/2.2a6d54ed.chunk.js.map": "/covid19TrofaGraph/static/js/2.2a6d54ed.chunk.js.map",
+    "index.html": "/covid19TrofaGraph/index.html",
+    "precache-manifest.322c8ac46fa5897efbe0db46e033805f.js": "/covid19TrofaGraph/precache-manifest.322c8ac46fa5897efbe0db46e033805f.js",
+    "service-worker.js": "/covid19TrofaGraph/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/covid19TrofaGraph/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.2a6d54ed.chunk.js.LICENSE.txt": "/covid19TrofaGraph/static/js/2.2a6d54ed.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.bb4ebdb3.js",
-    "static/js/2.b6d8deb2.chunk.js",
+    "static/js/runtime-main.fadebc51.js",
+    "static/js/2.2a6d54ed.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.20f6f26e.chunk.js"
+    "static/js/main.4f9bc3e4.chunk.js"
   ]
 }
