@@ -68,6 +68,12 @@ const App: () => JSX.Element = (): JSX.Element => {
           label="Casos confirmados em Portugal"
           theme={theme1}
         />)}
+        {chartWrapper(<DefaultLine
+          data={ptEntries.confirmedPt}
+          datapointsCount={90}
+          label="Casos confirmados em Portugal"
+          theme={theme1}
+        />)}
       </Grid>
     </div>
   );
