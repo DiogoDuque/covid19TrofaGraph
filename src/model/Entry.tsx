@@ -1,13 +1,3 @@
-
-function strToDate(str: string) {
-  const dateParts = str.split('-');
-  return new Date(
-    parseInt(dateParts[2]),   // year
-    parseInt(dateParts[1])-1, // month, zero-indexed
-    parseInt(dateParts[0]),   // day
-    );
-}
-
 export default class Entry {
   _dateStr: string;
   // _date: Date;
