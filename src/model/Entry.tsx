@@ -10,13 +10,14 @@ function strToDate(str: string) {
 
 export default class Entry {
   _dateStr: string;
-  _date: Date;
+  // _date: Date;
   _count: number;
 
-  constructor(date: string, count: string) {
+  constructor(date: string, count: string|number) {
     this._dateStr = date;
-    this._date = strToDate(date);
-    this._count = parseInt(count);
+    // this._date = strToDate(date);
+
+    this._count = typeof count === 'number' ? count : parseInt(count);
 
     if(isNaN(this._count))
       this._count = 0;
@@ -26,9 +27,6 @@ export default class Entry {
     return this._dateStr;
   }
 
-  get date(): Date {
-    return this._date;
-  }
 
   get count(): number {
     return this._count;

@@ -9,7 +9,7 @@ const DefaultLine = ({ data, datapointsCount, label, theme }) => {
   const min = Math.min(...lastNEntries.map(e=>e.count));
   const max = Math.max(...lastNEntries.map(e=>e.count));
   const diff = Math.max(max - min, 20);
-  const suggestedMin = Math.round(min - diff/10);
+  const suggestedMin = Math.max(Math.round(min - diff/10),0);
   const suggestedMax = Math.round(max + diff/10);
   return (
     <Line

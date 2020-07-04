@@ -1,4 +1,6 @@
 import Entry from "../model/Entry";
+import React from "react";
+import { Grid } from "@material-ui/core";
 
 export function filterLastNDays(entries: Entry[], n: number) {
   const size = entries.length;
@@ -14,6 +16,7 @@ export function getChartData(entries: Entry[], label: string, chosenTheme: objec
       fill: true,
       lineTension: 0.1,
       pointBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
       data: entries.map(entry => entry.count),
@@ -36,6 +39,16 @@ export function getChartOptions(beginAtZero=false, suggestedMin=null, suggestedM
       }]
     },
   }
+}
+
+export function chartWrapper(chartElement: JSX.Element, classes: any): JSX.Element {
+  return (
+    <Grid item xs={12}>
+      <div className={classes.chartContainer}>
+        {chartElement}
+      </div>
+    </Grid>
+  );
 }
 
 export default {
