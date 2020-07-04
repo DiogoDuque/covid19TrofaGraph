@@ -13,9 +13,13 @@ import { derivateEntryValues } from './utils/chartUtils';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    'backgroundColor': '#f5f5f5',
     flexGrow: 1,
-    marginLeft: 10,
-    marginRight: 30,
+    display: 'flex',
+    'align-items': 'center',
+    'justify-content': 'center',
+    padding: 15,
+    paddingRight: 30,
   },
   chartContainer: {
     position: 'relative',
@@ -78,14 +82,20 @@ const App: () => JSX.Element = (): JSX.Element => {
         </CardContent>
         </Card>
 
-          <ConfirmedCasesCharts trofaEntries={trofaEntries} ptEntries={ptEntries} classes={classes} />
-          <NewCasesCharts trofaEntries={trofaNewEntries} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
-          <CaseVariationCharts trofaEntries={trofaVariationEntries} northEntries={northVariationEntries} nationalEntries={ptVariationEntries} classes={classes} />
+        <br/>
+        <ConfirmedCasesCharts trofaEntries={trofaEntries} ptEntries={ptEntries} classes={classes} />
+        <br/>
+        <NewCasesCharts trofaEntries={trofaNewEntries} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
+        <br/>
+        <CaseVariationCharts trofaEntries={trofaVariationEntries} northEntries={northVariationEntries} nationalEntries={ptVariationEntries} classes={classes} />
+        <br/>
 
         <Card>
         <CardContent>
           <Typography variant="body2" component="p">
             Os dados aqui apresentados são extraídos do repositório <a href="https://github.com/dssg-pt/covid19pt-data">dssg-pt/covid19pt-data</a>.
+            <br/>
+            O código para este dashboard pode ser consultado <a href="https://github.com/DiogoDuque/covid19TrofaGraph">aqui</a>.
             <br/>
             {/*The data hereby presented is extracted from the <a href="https://github.com/dssg-pt/covid19pt-data">dssg-pt/covid19pt-data</a> repository.*/}
           </Typography>
