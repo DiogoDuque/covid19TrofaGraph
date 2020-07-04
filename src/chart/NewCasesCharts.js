@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Typography, Grid } from "@material-ui/core";
 import { chartWrapper } from "../utils/chartUtils";
-import DefaultLine from "./DefaultLine";
+import DefaultLineChart from "./DefaultLineChart";
 import { themeYellow } from "../config/themes";
 import Entry from "../model/Entry";
 import PortugalEntries from "../model/PortugalEntries";
@@ -14,25 +14,25 @@ const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, classes }) => {
         Casos novos
       </Typography>
       <Grid container spacing={3}>
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={trofaEntries}
           datapointsCount={30}
           label="Casos novos na Trofa"
           theme={themeYellow}
         />, classes)}
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={northEntries}
           datapointsCount={30}
           label="Casos novos no Norte"
           theme={themeYellow}
         />, classes)}
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={ptEntries.newConfirmedPt}
           datapointsCount={30}
           label="Casos novos em Portugal"
           theme={themeYellow}
         />, classes)}
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={ptEntries.newConfirmedPt}
           datapointsCount={90}
           label="Casos novos em Portugal"

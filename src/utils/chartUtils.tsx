@@ -27,7 +27,10 @@ export function getChartData(entries: Entry[], label: string, chosenTheme: objec
     datasets: [{
       label,
       fill: true,
+      categoryPercentage: 1.0,
+      barPercentage: 0.95,
       lineTension: 0.1,
+      borderWidth: 2,
       pointBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(220,220,220,1)',
       pointBorderWidth: 1,

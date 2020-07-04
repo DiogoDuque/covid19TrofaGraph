@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Typography, Grid } from "@material-ui/core";
 import { chartWrapper } from "../utils/chartUtils";
-import DefaultLine from "./DefaultLine";
+import DefaultLineChart from "./DefaultLineChart";
 import { themeCyan } from "../config/themes";
 import Entry from "../model/Entry";
 import PortugalEntries from "../model/PortugalEntries";
@@ -14,25 +14,25 @@ const ConfirmedCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
         Casos confirmados
       </Typography>
       <Grid container spacing={3}>
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={trofaEntries}
           datapointsCount={30}
           label="Casos confirmados na Trofa"
           theme={themeCyan}
         />, classes)}
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={ptEntries.confirmedNorth}
           datapointsCount={30}
           label="Casos confirmados no Norte"
           theme={themeCyan}
         />, classes)}
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={ptEntries.confirmedPt}
           datapointsCount={30}
           label="Casos confirmados em Portugal"
           theme={themeCyan}
         />, classes)}
-        {chartWrapper(<DefaultLine
+        {chartWrapper(<DefaultLineChart
           data={ptEntries.confirmedPt}
           datapointsCount={90}
           label="Casos confirmados em Portugal"
