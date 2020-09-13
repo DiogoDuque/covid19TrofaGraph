@@ -87,8 +87,6 @@ const App: () => JSX.Element = (): JSX.Element => {
         <br/>
         <NewCasesCharts trofaEntries={trofaNewEntries} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
         <br/>
-        <CaseVariationCharts trofaEntries={trofaVariationEntries} northEntries={northVariationEntries} nationalEntries={ptVariationEntries} classes={classes} />
-        <br/>
 
         <Card>
         <CardContent>
