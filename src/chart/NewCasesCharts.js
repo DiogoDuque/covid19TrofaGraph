@@ -17,14 +17,8 @@ const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, classes }) => {
     />,
     <DefaultLineChart
       data={northEntries}
-      datapointsCount={30}
+      datapointsCount={90}
       label="Casos novos no Norte"
-      theme={themeYellow}
-    />,
-    <DefaultLineChart
-      data={ptEntries.newConfirmedPt}
-      datapointsCount={30}
-      label="Casos novos em Portugal"
       theme={themeYellow}
     />,
     <DefaultLineChart

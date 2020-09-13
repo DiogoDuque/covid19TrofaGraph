@@ -17,14 +17,8 @@ const ConfirmedCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
     />,
     <DefaultLineChart
       data={ptEntries.confirmedNorth}
-      datapointsCount={30}
+      datapointsCount={90}
       label="Casos confirmados no Norte"
-      theme={themeCyan}
-    />,
-    <DefaultLineChart
-      data={ptEntries.confirmedPt}
-      datapointsCount={30}
-      label="Casos confirmados em Portugal"
       theme={themeCyan}
     />,
     <DefaultLineChart
