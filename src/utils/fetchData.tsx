@@ -4,14 +4,15 @@ import Entry from '../model/Entry';
 import PortugalEntries from '../model/PortugalEntries';
 
 function _getDataFromSource(sourceFile: string): Promise<Response> {
-  const url = 'https://cors-anywhere.herokuapp.com/https://github.com/dssg-pt/covid19pt-data/raw/master/'+sourceFile;
+  const url = 'https://raw.githubusercontent.com/dssg-pt/covid19pt-data/master/'+sourceFile;
   const headers: Headers = new Headers({
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Origin': 'https://github.com',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    //'Content-Type': 'application/x-www-form-urlencoded',
+    //'Origin': 'https://github.com',
+    //'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    Accept: 'application/vnd.github.v3+json',
     // 'Access-Control-Allow-Origin': '*',
   });
-  console.log('Fetching '+sourceFile);
+  console.log('[_getDataFromSource] Fetching '+sourceFile);
   return fetch(url, { method: 'GET', headers });
 }
 
@@ -44,6 +45,7 @@ export function getPortugalData(callback: Function) {
       const ptConfirmedEntries: Entry[] = [];
       const northConfirmedEntries: Entry[] = [];
       const ptNewConfirmedEntries: Entry[] = [];
+      const ptActiveEntries: Entry[] = [];
       const stream = new Readable();
       stream.push(responseData);
       stream.push(null);
@@ -53,8 +55,9 @@ export function getPortugalData(callback: Function) {
           ptConfirmedEntries.push(new Entry(data.data, data.confirmados));
           northConfirmedEntries.push(new Entry(data.data, data.confirmados_arsnorte));
           ptNewConfirmedEntries.push(new Entry(data.data, data.confirmados_novos));
+          ptActiveEntries.push(new Entry(data.data, data.ativos));
         })
-        .on('end', () => callback(new PortugalEntries(ptConfirmedEntries, northConfirmedEntries, ptNewConfirmedEntries)));
+        .on('end', () => callback(new PortugalEntries(ptConfirmedEntries, northConfirmedEntries, ptNewConfirmedEntries, ptActiveEntries)));
     })
     .catch(err => console.error(err));
 }

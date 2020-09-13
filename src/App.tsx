@@ -8,10 +8,10 @@ import Entry from './model/Entry';
 import { getTownData, getPortugalData } from './utils/fetchData';
 import ConfirmedCasesCharts from './chart/ConfirmedCasesCharts';
 import NewCasesCharts from './chart/NewCasesCharts';
-import CaseVariationCharts from './chart/CaseVariationCharts';
 import { derivateEntryValues } from './utils/chartUtils';
+import ActiveCasesCharts from './chart/ActiveCasesCharts';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     'backgroundColor': '#f5f5f5',
     flexGrow: 1,
@@ -44,9 +44,6 @@ const App: () => JSX.Element = (): JSX.Element => {
   let lastPtUpdate: string = "";
   let trofaNewEntries: Entry[] = [];
   let northNewEntries: Entry[] = [];
-  let trofaVariationEntries: Entry[] = [];
-  let northVariationEntries: Entry[] = [];
-  let ptVariationEntries: Entry[] = [];
 
 
   if(!isFetching) {
@@ -54,9 +51,6 @@ const App: () => JSX.Element = (): JSX.Element => {
     lastPtUpdate = ptEntries.confirmedPt[ptEntries.confirmedPt.length -1].dateStr;
     trofaNewEntries = derivateEntryValues(trofaEntries);
     northNewEntries = derivateEntryValues(ptEntries.confirmedNorth);
-    trofaVariationEntries = derivateEntryValues(trofaNewEntries);
-    northVariationEntries = derivateEntryValues(northNewEntries);
-    ptVariationEntries = derivateEntryValues(ptEntries.newConfirmedPt);
   }
 
   useEffect(() => {
@@ -73,31 +67,33 @@ const App: () => JSX.Element = (): JSX.Element => {
       ? <CircularProgress className={classes.progress} />
       : <div>
         <Card>
-        <CardContent>
-          <Typography variant="body2" component="p">
-            A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}.
-            <br/>
-            {/*The last update on this data occurred at the following times: {`Portugal/North => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}.*/}
-          </Typography>
-        </CardContent>
+          <CardContent>
+            <Typography variant="body2" component="p">
+              A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}.
+              <br/>
+              {/*The last update on this data occurred at the following times: {`Portugal/North => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}.*/}
+            </Typography>
+          </CardContent>
         </Card>
 
         <br/>
-        <ConfirmedCasesCharts trofaEntries={trofaEntries} ptEntries={ptEntries} classes={classes} />
+        <ActiveCasesCharts ptEntries={ptEntries} classes={classes} />
         <br/>
         <NewCasesCharts trofaEntries={trofaNewEntries} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
         <br/>
+        <ConfirmedCasesCharts trofaEntries={trofaEntries} ptEntries={ptEntries} classes={classes} />
+        <br/>
 
         <Card>
-        <CardContent>
-          <Typography variant="body2" component="p">
-            Os dados aqui apresentados são extraídos do repositório <a href="https://github.com/dssg-pt/covid19pt-data">dssg-pt/covid19pt-data</a>.
-            <br/>
-            O código para este dashboard pode ser consultado <a href="https://github.com/DiogoDuque/covid19TrofaGraph">aqui</a>.
-            <br/>
-            {/*The data hereby presented is extracted from the <a href="https://github.com/dssg-pt/covid19pt-data">dssg-pt/covid19pt-data</a> repository.*/}
-          </Typography>
-        </CardContent>
+          <CardContent>
+            <Typography variant="body2" component="p">
+              Os dados aqui apresentados são extraídos do repositório <a href="https://github.com/dssg-pt/covid19pt-data">dssg-pt/covid19pt-data</a>.
+              <br/>
+              O código para este dashboard pode ser consultado <a href="https://github.com/DiogoDuque/covid19TrofaGraph">aqui</a>.
+              <br/>
+              {/*The data hereby presented is extracted from the <a href="https://github.com/dssg-pt/covid19pt-data">dssg-pt/covid19pt-data</a> repository.*/}
+            </Typography>
+          </CardContent>
         </Card>
       </div>
     }

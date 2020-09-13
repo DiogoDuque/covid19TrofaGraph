@@ -4,11 +4,13 @@ export default class PortugalEntries {
   _confirmedPt: Entry[];
   _confirmedNorth: Entry[];
   _newConfirmedPt: Entry[];
+  _activePt: Entry[];
 
-  constructor(confirmedPt: Entry[] = [], confirmedNorth: Entry[] = [], newConfirmedPt: Entry[] = []) {
+  constructor(confirmedPt: Entry[] = [], confirmedNorth: Entry[] = [], newConfirmedPt: Entry[] = [], ptActiveEntries: Entry[] = []) {
     this._confirmedPt = confirmedPt;
     this._confirmedNorth = confirmedNorth;
     this._newConfirmedPt = newConfirmedPt;
+    this._activePt = ptActiveEntries;
   }
 
   get confirmedPt(): Entry[] {
@@ -21,5 +23,9 @@ export default class PortugalEntries {
 
   get newConfirmedPt(): Entry[] {
     return this._newConfirmedPt;
+  }
+
+  get activePt(): Entry[] {
+    return this._activePt;
   }
 }

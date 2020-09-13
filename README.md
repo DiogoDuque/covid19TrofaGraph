@@ -17,3 +17,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ```bash
 npm run deploy
 ```
+
+
+## Future ideas
+* Death/recovered cases evolution chart
+* Table, split by age group, with absolute number of infecteds and also relative when comparing to demographics of age group

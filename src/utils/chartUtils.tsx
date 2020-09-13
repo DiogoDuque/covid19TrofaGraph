@@ -1,6 +1,6 @@
 import Entry from "../model/Entry";
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 export function filterLastNDays(entries: Entry[], n: number) {
   const size = entries.length;
@@ -57,9 +57,10 @@ export function getChartOptions(beginAtZero=false, suggestedMin=null, suggestedM
   }
 }
 
+let key=0;
 export function chartWrapper(chartElement: JSX.Element, classes: any): JSX.Element {
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} key={key++}>
       <div className={classes.chartContainer}>
         {chartElement}
       </div>
@@ -67,10 +68,22 @@ export function chartWrapper(chartElement: JSX.Element, classes: any): JSX.Eleme
   );
 }
 
+export const chartGroupWrapper = (title: String, classes: any, ...components: JSX.Element[]) => (
+  <div>
+    <Typography variant="h3" style={{ textAlign: 'center' }} gutterBottom>
+      {title}
+    </Typography>
+    <Grid container spacing={3}>
+      {components.map(component => chartWrapper(component, classes))}
+    </Grid>
+  </div>
+);
+
 export default {
   filterLastNDays,
   processCaseCount2NewCases: derivateEntryValues,
   getChartData,
   getChartOptions,
   chartWrapper,
+  chartGroupWrapper,
 }
