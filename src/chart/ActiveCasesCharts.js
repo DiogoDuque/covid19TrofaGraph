@@ -9,14 +9,14 @@ const ActiveCasesCharts = ({ ptEntries, classes }) => {
   return chartGroupWrapper('Casos ativos', classes,
     <DefaultLineChart
       data={ptEntries.activePt}
-      datapointsCount={90}
+      datapointsCount={30}
       label="Casos ativos em Portugal"
       theme={themeMagenta}
       zeroBased={false}
     />,
     <DefaultLineChart
       data={derivateEntryValues(ptEntries.activePt)}
-      datapointsCount={90}
+      datapointsCount={30}
       label="Variação de casos ativos em Portugal"
       theme={themeMagenta}
       zeroBased={false}
