@@ -17,6 +17,7 @@ const ConfirmedCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
         {chartWrapper(<DefaultLineChart
           data={trofaEntries}
           datapointsCount={14}
+          dateRange={90}
           label="Casos confirmados na Trofa"
           theme={themeCyan}
         />, classes)}
