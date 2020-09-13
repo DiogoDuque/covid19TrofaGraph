@@ -16,7 +16,7 @@ const ConfirmedCasesCharts = ({ trofaEntries, ptEntries, classes }) => {
       <Grid container spacing={3}>
         {chartWrapper(<DefaultLineChart
           data={trofaEntries}
-          datapointsCount={30}
+          datapointsCount={14}
           label="Casos confirmados na Trofa"
           theme={themeCyan}
         />, classes)}
