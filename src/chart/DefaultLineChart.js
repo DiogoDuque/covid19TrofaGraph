@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import Entry from '../model/Entry';
 import { filterLastNDays, getChartOptions, getChartData } from '../utils/chartUtils';
 
-const DefaultLineChart = ({ data, datapointsCount, label, theme, zeroBased }) => {
+const DefaultLineChart = ({ data, datapointsCount, dateRange, label, theme, zeroBased }) => {
   const lastNEntries = filterLastNDays(data, datapointsCount);
   const min = Math.min(...lastNEntries.map(e=>e.count));
   const max = Math.max(...lastNEntries.map(e=>e.count));
@@ -18,7 +18,7 @@ const DefaultLineChart = ({ data, datapointsCount, label, theme, zeroBased }) =>
   
   return (
     <Line
-      data={getChartData(lastNEntries, `${label} (${datapointsCount} dias)`, theme)}
+      data={getChartData(lastNEntries, `${label} (${dateRange ? dateRange : datapointsCount} dias)`, theme)}
       options={getChartOptions(false, suggestedMin, suggestedMax)}
     />
   );
@@ -27,6 +27,7 @@ const DefaultLineChart = ({ data, datapointsCount, label, theme, zeroBased }) =>
 DefaultLineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
   datapointsCount: PropTypes.number.isRequired,
+  dateRange: PropTypes.number,
   label: PropTypes.string.isRequired,
   theme: PropTypes.object.isRequired,
   zeroBased: PropTypes.bool,
@@ -34,6 +35,7 @@ DefaultLineChart.propTypes = {
 
 DefaultLineChart.defaultProps = {
   zeroBased: true,
+  dateRange: 0,
 };
 
 export default DefaultLineChart;
