@@ -12,7 +12,6 @@ const ActiveCasesCharts = ({ ptEntries, classes }) => {
       datapointsCount={30}
       label="Casos ativos em Portugal"
       theme={themeMagenta}
-      zeroBased={false}
     />,
     <DefaultLineChart
       data={derivateEntryValues(ptEntries.activePt)}
