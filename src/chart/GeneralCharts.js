@@ -13,13 +13,14 @@ const GeneralCharts = ({ ptEntries, classes }) => {
       datapointsCount={30}
       label="Casos ativos em Portugal"
       theme={themeMagenta}
+      zeroBased={true}
     />,
     <MultiLineChart
       dataArray={[ptEntries.hospitalized, ptEntries.hospitalizedIcu]}
       datapointsCount={30}
       labels={["Internados em Portugal", "Internados em UCI em Portugal"]}
       themes={[themeMagentaLight, themeMagentaDark]}
-      zeroBased={false}
+      zeroBased={true}
     />
   );
 }

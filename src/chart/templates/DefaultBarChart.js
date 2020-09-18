@@ -8,18 +8,18 @@ const DefaultBarChart = ({ data, datapointsCount, label, theme, zeroBased }) => 
   const lastNEntries = filterLastNDays(data, datapointsCount);
   const min = Math.min(...lastNEntries.map(e=>e.count));
   const max = Math.max(...lastNEntries.map(e=>e.count));
-  const diff = Math.max((max - min)/20, zeroBased ? 4 : 2);
+  const margin = Math.max((max - min)/20, zeroBased ? 4 : 2);
 
-  const suggestedMax = Math.round(max + diff);
+  const suggestedMax = Math.round(max + margin);
 
-  let suggestedMin = Math.round(min - diff);
+  let suggestedMin = Math.round(min - margin);
   if(zeroBased) suggestedMin = Math.max(suggestedMin, 0);
 
   
   return (
     <Bar
       data={getChartData(lastNEntries, `${label} (${datapointsCount} dias)`, theme)}
-      options={getChartOptions(false, suggestedMin, suggestedMax)}
+      options={getChartOptions(zeroBased, suggestedMin, suggestedMax)}
     />
   );
 }

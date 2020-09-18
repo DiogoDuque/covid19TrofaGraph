@@ -9,11 +9,11 @@ const MultiLineChart = ({ dataArray, datapointsCount, dateRange, labels, themes,
   const lastEntriesFlat = lastNEntriesArray.flatMap(eArr=>eArr.map(e=>e.count));
   const min = Math.min(...lastEntriesFlat);
   const max = Math.max(...lastEntriesFlat);
-  const diff = Math.max((max - min)/20, zeroBased ? 4 : 2);
+  const offset = Math.max((max - min)/20, zeroBased ? 4 : 2);
 
-  const suggestedMax = Math.round(max + diff);
+  const suggestedMax = Math.round(max + offset);
 
-  let suggestedMin = Math.round(min - diff);
+  let suggestedMin = Math.round(min - offset);
   if(zeroBased) suggestedMin = Math.max(suggestedMin, 0);
   console.log(lastEntriesFlat);
   console.log(`${suggestedMin}, ${suggestedMax}`);
@@ -25,7 +25,7 @@ const MultiLineChart = ({ dataArray, datapointsCount, dateRange, labels, themes,
   return (
     <Line
       data={getMultipleChartData(lastNEntriesArray, labels.map(lbl =>`${lbl} (${dateRange ? dateRange : datapointsCount} dias)`), themes)}
-      options={getChartOptions(false, suggestedMin, suggestedMax)}
+      options={getChartOptions(zeroBased, suggestedMin, suggestedMax)}
     />
   );
 }
