@@ -9,7 +9,7 @@ import { getTownData, getPortugalData } from './utils/fetchData';
 import ConfirmedCasesCharts from './chart/ConfirmedCasesCharts';
 import NewCasesCharts from './chart/NewCasesCharts';
 import { derivateEntryValues } from './utils/chartUtils';
-import ActiveCasesCharts from './chart/ActiveCasesCharts';
+import GeneralCharts from './chart/GeneralCharts';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -77,7 +77,7 @@ const App: () => JSX.Element = (): JSX.Element => {
         </Card>
 
         <br/>
-        <ActiveCasesCharts ptEntries={ptEntries} classes={classes} />
+        <GeneralCharts ptEntries={ptEntries} classes={classes} />
         <br/>
         <NewCasesCharts trofaEntries={trofaNewEntries} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
         <br/>

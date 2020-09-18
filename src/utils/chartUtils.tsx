@@ -23,10 +23,9 @@ export function derivateEntryValues(entries: Entry[]): Entry[] {
 }
 
 export function getChartData(entries: Entry[], label: string, chosenTheme: object) {
-  return {
+  const result = {
     datasets: [{
       label,
-      fill: true,
       categoryPercentage: 1.0,
       barPercentage: 0.95,
       lineTension: 0.1,
@@ -39,7 +38,28 @@ export function getChartData(entries: Entry[], label: string, chosenTheme: objec
       ...chosenTheme,
     }],
     labels: entries.map(entry => entry.dateStr),
+  };
+  return result;
+}
+
+export function getMultipleChartData(entriesArray: Entry[][], labels: string[], chosenThemes: object[]) {
+  const result = {
+    datasets: Array.from(Array(entriesArray.length).keys()).map(i => ({
+      label: labels[i],
+      categoryPercentage: 1.0,
+      barPercentage: 0.95,
+      lineTension: 0.1,
+      borderWidth: 2,
+      pointBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      data: entriesArray[i].map(entry => entry.count),
+      ...chosenThemes[i],
+    })),
+    labels: entriesArray[0].map(entry => entry.dateStr),
   }
+  return result;
 }
 
 export function getChartOptions(beginAtZero=false, suggestedMin=null, suggestedMax=null) {

@@ -12,6 +12,20 @@ export const themeMagenta = {
   pointHoverBackgroundColor: 'rgba(192,75,192,1)',
 }
 
+export const themeMagentaLight = {
+  backgroundColor: 'rgba(217, 128, 217,0.4)',
+  borderColor: 'rgba(217, 128, 217,1)',
+  pointBorderColor: 'rgba(217, 128, 217,1)',
+  pointHoverBackgroundColor: 'rgba(217, 128, 217,1)',
+}
+
+export const themeMagentaDark = {
+  backgroundColor: 'rgba(140, 83, 140,0.4)',
+  borderColor: 'rgba(140, 83, 140,1)',
+  pointBorderColor: 'rgba(1140, 83, 140,1)',
+  pointHoverBackgroundColor: 'rgba(140, 83, 140,1)',
+}
+
 export const themeYellow = {
   backgroundColor: 'rgba(192,192,75,0.4)',
   borderColor: 'rgba(192,192,75,1)',

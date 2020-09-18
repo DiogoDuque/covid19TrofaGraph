@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { chartGroupWrapper, derivateEntryValues } from "../utils/chartUtils";
+import { chartGroupWrapper } from "../utils/chartUtils";
 import DefaultLineChart from "./templates/DefaultLineChart";
-import { themeMagenta } from "../config/themes";
+import MultiLineChart from "./templates/MultiLineChart";
+import { themeMagenta, themeMagentaDark, themeMagentaLight } from "../config/themes";
 import PortugalEntries from "../model/PortugalEntries";
 
-const ActiveCasesCharts = ({ ptEntries, classes }) => {
+const GeneralCharts = ({ ptEntries, classes }) => {
   return chartGroupWrapper('Casos ativos', classes,
     <DefaultLineChart
       data={ptEntries.activePt}
@@ -13,19 +14,19 @@ const ActiveCasesCharts = ({ ptEntries, classes }) => {
       label="Casos ativos em Portugal"
       theme={themeMagenta}
     />,
-    <DefaultLineChart
-      data={derivateEntryValues(ptEntries.activePt)}
+    <MultiLineChart
+      dataArray={[ptEntries.hospitalized, ptEntries.hospitalizedIcu]}
       datapointsCount={30}
-      label="Variação de casos ativos em Portugal"
-      theme={themeMagenta}
+      labels={["Internados em Portugal", "Internados em UCI em Portugal"]}
+      themes={[themeMagentaLight, themeMagentaDark]}
       zeroBased={false}
     />
   );
 }
 
-ActiveCasesCharts.propTypes = {
+GeneralCharts.propTypes = {
   ptEntries: PropTypes.instanceOf(PortugalEntries).isRequired,
   classes: PropTypes.any.isRequired,
 };
 
-export default ActiveCasesCharts;
+export default GeneralCharts;

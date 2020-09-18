@@ -46,6 +46,8 @@ export function getPortugalData(callback: Function) {
       const northConfirmedEntries: Entry[] = [];
       const ptNewConfirmedEntries: Entry[] = [];
       const ptActiveEntries: Entry[] = [];
+      const hospitalizedEntries: Entry[] = [];
+      const hospitalizedIcuEntries: Entry[] = [];
       const stream = new Readable();
       stream.push(responseData);
       stream.push(null);
@@ -56,8 +58,10 @@ export function getPortugalData(callback: Function) {
           northConfirmedEntries.push(new Entry(data.data, data.confirmados_arsnorte));
           ptNewConfirmedEntries.push(new Entry(data.data, data.confirmados_novos));
           ptActiveEntries.push(new Entry(data.data, data.ativos));
+          hospitalizedEntries.push(new Entry(data.data, data.internados));
+          hospitalizedIcuEntries.push(new Entry(data.data, data.internados_uci));
         })
-        .on('end', () => callback(new PortugalEntries(ptConfirmedEntries, northConfirmedEntries, ptNewConfirmedEntries, ptActiveEntries)));
+        .on('end', () => callback(new PortugalEntries(ptConfirmedEntries, northConfirmedEntries, ptNewConfirmedEntries, ptActiveEntries, hospitalizedEntries, hospitalizedIcuEntries)));
     })
     .catch(err => console.error(err));
 }
