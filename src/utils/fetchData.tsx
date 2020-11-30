@@ -17,7 +17,7 @@ function _getDataFromSource(sourceFile: string): Promise<Response> {
 }
 
 export function getTownData(town: string, callback: Function) {
-  _getDataFromSource('data_concelhos.csv')
+  _getDataFromSource('data_concelhos_incidencia.csv')
     .then((response: Response) => {
       if (response && response.status === 200)
         return response.text();
