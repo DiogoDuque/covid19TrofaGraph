@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import PortugalEntries from './model/PortugalEntries';
 import Entry from './model/Entry';
 import { getTownData, getPortugalData } from './utils/fetchData';
-import ConfirmedCasesCharts from './chart/ConfirmedCasesCharts';
 import NewCasesCharts from './chart/NewCasesCharts';
 import { derivateEntryValues } from './utils/chartUtils';
 import GeneralCharts from './chart/GeneralCharts';
