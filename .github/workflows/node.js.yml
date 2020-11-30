@@ -21,9 +21,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1.1.0
+      uses: actions/setup-node@v1
       with:
-        version: ${{ matrix.node-version }}
+        node-version: ${{ matrix.node-version }}
     - run: git config user.name "DiogoDuque"
     - run: git config user.email "diogoduque25@gmail.com"
     - run: npm ci
