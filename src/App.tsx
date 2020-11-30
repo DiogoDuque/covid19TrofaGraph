@@ -36,19 +36,17 @@ const App: () => JSX.Element = (): JSX.Element => {
   const classes = useStyles();
   const [isFetching, setIsFetching]: [boolean, Function] = useState(true);
 
-  const [trofaEntries, setTrofaEntries]: [Entry[], Function] = useState([]);
+  const [trofaNewEntries, setTrofaEntries]: [Entry[], Function] = useState([]);
   const [ptEntries, setPtEntries]: [PortugalEntries, Function] = useState(new PortugalEntries());
 
   let lastTownUpdate: string = "";
   let lastPtUpdate: string = "";
-  let trofaNewEntries: Entry[] = [];
   let northNewEntries: Entry[] = [];
 
 
   if(!isFetching) {
-    lastTownUpdate = trofaEntries[trofaEntries.length-1].dateStr;
+    lastTownUpdate = trofaNewEntries[trofaNewEntries.length-1].dateStr;
     lastPtUpdate = ptEntries.confirmedPt[ptEntries.confirmedPt.length -1].dateStr;
-    trofaNewEntries = derivateEntryValues(trofaEntries);
     northNewEntries = derivateEntryValues(ptEntries.confirmedNorth);
   }
 
@@ -57,7 +55,7 @@ const App: () => JSX.Element = (): JSX.Element => {
     getPortugalData(setPtEntries);
   }, []);
   
-  if(isFetching && trofaEntries.length > 0 && ptEntries.confirmedPt.length > 0)
+  if(isFetching && trofaNewEntries.length > 0 && ptEntries.confirmedPt.length > 0)
     setIsFetching(false);
 
   return (
