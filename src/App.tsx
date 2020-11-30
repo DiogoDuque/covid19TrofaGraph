@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
 const App: () => JSX.Element = (): JSX.Element => {
   const classes = useStyles();
   const [isFetching, setIsFetching]: [boolean, Function] = useState(true);
-  const [dateRange, setDateRange]: [number, Function] = useState(90);
+  const [dateRange, setDateRange]: [number, Function] = useState(30);
 
   const [trofaNewEntries, setTrofaEntries]: [Entry[], Function] = useState([]);
   const [ptEntries, setPtEntries]: [PortugalEntries, Function] = useState(new PortugalEntries());

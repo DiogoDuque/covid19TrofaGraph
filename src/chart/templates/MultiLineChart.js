@@ -15,8 +15,6 @@ const MultiLineChart = ({ dataArray, dateRange, labels, themes, zeroBased }) => 
 
   let suggestedMin = Math.round(min - offset);
   if(zeroBased) suggestedMin = Math.max(suggestedMin, 0);
-  console.log(lastEntriesFlat);
-  console.log(`${suggestedMin}, ${suggestedMax}`);
 
   if(dataArray.length !== labels.length || labels.length !== themes.length) {
     console.error('Chart arguments cardinality did not match!');

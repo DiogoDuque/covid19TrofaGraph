@@ -2,7 +2,17 @@ import Entry from "../model/Entry";
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
-export function getEntriesSince(dateRange: number, entries: Entry[]) {
+function getAdaptativePointRadius(entries: Entry[]): number {
+  const width = window.screen.availWidth;
+  const count = entries.length;
+  const densityRatio = count/width;
+  const densityValue = densityRatio*12;
+  const retVal = Math.max(4-densityValue, 1);
+  console.log(`density=${densityValue} -> ${retVal}`);
+  return retVal;
+}
+
+export function getEntriesSince(dateRange: number, entries: Entry[]): Entry[] {
   const dateLimit = new Date();
   dateLimit.setDate(dateLimit.getDate() - dateRange);
 
@@ -34,6 +44,7 @@ export function getChartData(entries: Entry[], label: string, chosenTheme: objec
       pointHoverBorderColor: 'rgba(220,220,220,1)',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
+      pointRadius: getAdaptativePointRadius(entries),
       data: entries.map(entry => entry.count),
       ...chosenTheme,
     }],
@@ -54,6 +65,7 @@ export function getMultipleChartData(entriesArray: Entry[][], labels: string[], 
       pointHoverBorderColor: 'rgba(220,220,220,1)',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
+      pointRadius: getAdaptativePointRadius(entriesArray[i]),
       data: entriesArray[i].map(entry => entry.count),
       ...chosenThemes[i],
     })),
