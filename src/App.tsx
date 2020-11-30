@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import PortugalEntries from './model/PortugalEntries';
 import Entry from './model/Entry';
 import { getTownData, getPortugalData } from './utils/fetchData';
-import ConfirmedCasesCharts from './chart/ConfirmedCasesCharts';
 import NewCasesCharts from './chart/NewCasesCharts';
 import { derivateEntryValues } from './utils/chartUtils';
 import GeneralCharts from './chart/GeneralCharts';
@@ -80,8 +79,6 @@ const App: () => JSX.Element = (): JSX.Element => {
         <GeneralCharts ptEntries={ptEntries} classes={classes} />
         <br/>
         <NewCasesCharts trofaEntries={trofaNewEntries} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
-        <br/>
-        <ConfirmedCasesCharts trofaEntries={trofaEntries} ptEntries={ptEntries} classes={classes} />
         <br/>
 
         <Card>

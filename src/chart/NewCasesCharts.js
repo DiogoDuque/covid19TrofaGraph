@@ -12,7 +12,7 @@ const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, classes }) => {
       data={trofaEntries}
       datapointsCount={14}
       dateRange={90}
-      label="Casos novos na Trofa"
+      label="Casos novos na Trofa [por 100k hab.]"
       theme={themeYellow}
     />,
     <DefaultLineChart
