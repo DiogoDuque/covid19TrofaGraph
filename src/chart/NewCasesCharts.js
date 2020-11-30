@@ -6,24 +6,23 @@ import { themeYellow } from "../config/themes";
 import Entry from "../model/Entry";
 import PortugalEntries from "../model/PortugalEntries";
 
-const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, classes }) => {
+const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, classes }) => {
   return chartGroupWrapper('Casos novos', classes,
     <DefaultLineChart
       data={trofaEntries}
-      datapointsCount={14}
-      dateRange={90}
+      dateRange={dateRange}
       label="Casos novos na Trofa [por 100k hab.]"
       theme={themeYellow}
     />,
     <DefaultLineChart
       data={northEntries}
-      datapointsCount={90}
+      dateRange={dateRange}
       label="Casos novos no Norte"
       theme={themeYellow}
     />,
     <DefaultLineChart
       data={ptEntries.newConfirmedPt}
-      datapointsCount={90}
+      dateRange={dateRange}
       label="Casos novos em Portugal"
       theme={themeYellow}
     />
@@ -34,6 +33,7 @@ NewCasesCharts.propTypes = {
   trofaEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
   northEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
   ptEntries: PropTypes.instanceOf(PortugalEntries).isRequired,
+  dateRange: PropTypes.number.isRequired,
   classes: PropTypes.any.isRequired,
 };
 

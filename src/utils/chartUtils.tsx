@@ -2,11 +2,11 @@ import Entry from "../model/Entry";
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
-export function filterLastNDays(entries: Entry[], n: number) {
-  const size = entries.length;
-  if(size <= n)
-    return entries;
-  return entries.slice(size-n);
+export function getEntriesSince(dateRange: number, entries: Entry[]) {
+  const dateLimit = new Date();
+  dateLimit.setDate(dateLimit.getDate() - dateRange);
+
+  return entries.filter(e => e.date >= dateLimit);
 }
 
 export function derivateEntryValues(entries: Entry[]): Entry[] {
@@ -100,7 +100,7 @@ export const chartGroupWrapper = (title: String, classes: any, ...components: JS
 );
 
 export default {
-  filterLastNDays,
+  getEntriesSince,
   processCaseCount2NewCases: derivateEntryValues,
   getChartData,
   getChartOptions,

@@ -1,11 +1,16 @@
+function strToDate(dateStr: string) {
+  const parts = dateStr.split('-');
+  return new Date(Number(parts[2]), Number(parts[1]), Number(parts[0]));
+}
+
 export default class Entry {
   _dateStr: string;
-  // _date: Date;
+  _date: Date;
   _count: number;
 
   constructor(date: string, count: string|number) {
     this._dateStr = date;
-    // this._date = strToDate(date);
+    this._date = strToDate(date);
 
     this._count = typeof count === 'number' ? count : parseInt(count);
 
@@ -17,6 +22,9 @@ export default class Entry {
     return this._dateStr;
   }
 
+  get date(): Date {
+    return this._date;
+  }
 
   get count(): number {
     return this._count;

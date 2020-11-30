@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 import Entry from '../../model/Entry';
-import { filterLastNDays, getChartOptions, getMultipleChartData } from '../../utils/chartUtils';
+import { getEntriesSince, getChartOptions, getMultipleChartData } from '../../utils/chartUtils';
 
-const MultiLineChart = ({ dataArray, datapointsCount, dateRange, labels, themes, zeroBased }) => {
-  const lastNEntriesArray = dataArray.map(d=>filterLastNDays(d, datapointsCount));
+const MultiLineChart = ({ dataArray, dateRange, labels, themes, zeroBased }) => {
+  const lastNEntriesArray = dataArray.map(d=>getEntriesSince(dateRange, d));
   const lastEntriesFlat = lastNEntriesArray.flatMap(eArr=>eArr.map(e=>e.count));
   const min = Math.min(...lastEntriesFlat);
   const max = Math.max(...lastEntriesFlat);
@@ -24,7 +24,7 @@ const MultiLineChart = ({ dataArray, datapointsCount, dateRange, labels, themes,
   }
   return (
     <Line
-      data={getMultipleChartData(lastNEntriesArray, labels.map(lbl =>`${lbl} (${dateRange ? dateRange : datapointsCount} dias)`), themes)}
+      data={getMultipleChartData(lastNEntriesArray, labels, themes)}
       options={getChartOptions(zeroBased, suggestedMin, suggestedMax)}
     />
   );
@@ -32,8 +32,7 @@ const MultiLineChart = ({ dataArray, datapointsCount, dateRange, labels, themes,
 
 MultiLineChart.propTypes = {
   dataArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.instanceOf(Entry))).isRequired,
-  datapointsCount: PropTypes.number.isRequired,
-  dateRange: PropTypes.number,
+  dateRange: PropTypes.number.isRequired,
   labels: PropTypes.arrayOf(PropTypes.string.isRequired),
   themes: PropTypes.arrayOf(PropTypes.object.isRequired),
   zeroBased: PropTypes.bool,
