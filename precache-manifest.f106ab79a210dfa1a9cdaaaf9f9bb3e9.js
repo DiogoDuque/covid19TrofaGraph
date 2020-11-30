@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7ee1612e1c4da8f675970d1222de3f2a",
+    "revision": "d9a41545b67cd2e7c3068c6bdbd78c37",
     "url": "/covid19TrofaGraph/index.html"
   },
   {
-    "revision": "74447679bb0685f6ba16",
+    "revision": "65bb7565d36dc8ec2aca",
     "url": "/covid19TrofaGraph/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/covid19TrofaGraph/static/js/2.d973b69a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "74447679bb0685f6ba16",
-    "url": "/covid19TrofaGraph/static/js/main.2b8f64e1.chunk.js"
+    "revision": "65bb7565d36dc8ec2aca",
+    "url": "/covid19TrofaGraph/static/js/main.988325bc.chunk.js"
   },
   {
     "revision": "5f308162fecbf0d8eaf6",
