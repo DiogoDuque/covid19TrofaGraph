@@ -23,7 +23,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1.1.0
       with:
-        node-version: ${{ matrix.node-version }}
+        version: ${{ matrix.node-version }}
     - run: git config user.name "DiogoDuque"
     - run: git config user.email "diogoduque25@gmail.com"
     - run: npm ci
