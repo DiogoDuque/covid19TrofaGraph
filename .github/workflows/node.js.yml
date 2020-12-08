@@ -31,5 +31,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       run: |
         npm ci
-        touch dist/.nojekyll
+        touch build/.nojekyll
         npm run deploy -- --repo "https://git:${ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --user "Github Actions Bot <support+actions@github.com>"
