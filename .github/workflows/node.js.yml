@@ -29,6 +29,6 @@ jobs:
       env:
         NODE_DEBUG: gh-pages
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-    - run: |
+      run: |
         npm ci
         npm run deploy -- --repo "https://git:${ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --user "Github Actions Bot <support+actions@github.com>"
