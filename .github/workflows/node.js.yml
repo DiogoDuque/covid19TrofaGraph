@@ -11,21 +11,24 @@ on:
 
 jobs:
   gh-pages-deploy:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      with:
+        ref: refs/heads/master
+
+    - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: git config user.name "DiogoDuque"
-    - run: git config user.email "diogoduque25@gmail.com"
-    - run: npm ci
-    - run: npm run build
-    - run: npm run deploy
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      env:
+        NODE_DEBUG: gh-pages
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    - run: |
+        npm ci
+        npm run deploy -- --repo "https://git:${ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --user "Github Actions Bot <support+actions@github.com>"
