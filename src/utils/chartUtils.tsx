@@ -8,14 +8,21 @@ function getAdaptativePointRadius(entries: Entry[]): number {
   const densityRatio = count/width;
   const densityValue = densityRatio*12;
   const retVal = Math.max(4-densityValue, 1);
-  console.log(`density=${densityValue} -> ${retVal}`);
   return retVal;
 }
 
-export function getEntriesSince(dateRange: number, entries: Entry[]): Entry[] {
+function getDateLimitFromRange(dateRange: number): Date {
   const dateLimit = new Date();
   dateLimit.setDate(dateLimit.getDate() - dateRange);
+  return dateLimit;
+}
 
+export function getEntriesLineGenerator(entries: Entry[]): (v: number) => Entry[] {
+  return v => entries.map(e => new Entry(e.dateStr, v));
+}
+
+export function getEntriesSince(dateRange: number, entries: Entry[]): Entry[] {
+  const dateLimit = getDateLimitFromRange(dateRange);
   return entries.filter(e => e.date >= dateLimit);
 }
 
@@ -31,6 +38,8 @@ export function derivateEntryValues(entries: Entry[]): Entry[] {
 
   return newCasesEntries;
 }
+
+/** CHART ARGUMENTS */
 
 export function getChartData(entries: Entry[], label: string, chosenTheme: object) {
   const result = {
@@ -89,6 +98,8 @@ export function getChartOptions(beginAtZero=false, suggestedMin=null, suggestedM
   }
 }
 
+/** CHART WRAPPERS */
+
 let key=0;
 export function chartWrapper(chartElement: JSX.Element, classes: any): JSX.Element {
   return (
@@ -110,12 +121,3 @@ export const chartGroupWrapper = (title: String, classes: any, ...components: JS
     </Grid>
   </div>
 );
-
-export default {
-  getEntriesSince,
-  processCaseCount2NewCases: derivateEntryValues,
-  getChartData,
-  getChartOptions,
-  chartWrapper,
-  chartGroupWrapper,
-}

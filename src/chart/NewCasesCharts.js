@@ -1,18 +1,26 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { chartGroupWrapper } from "../utils/chartUtils";
+import { chartGroupWrapper, getEntriesLineGenerator } from "../utils/chartUtils";
 import DefaultLineChart from "./templates/DefaultLineChart";
-import { themeYellow } from "../config/themes";
+import MultiLineChart from "./templates/MultiLineChart";
+import { themeYellow, severityTheme1, severityTheme2, severityTheme3 } from "../config/themes";
 import Entry from "../model/Entry";
 import PortugalEntries from "../model/PortugalEntries";
 
 const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, classes }) => {
+  const trofaLineGenerator = getEntriesLineGenerator(trofaEntries);
   return chartGroupWrapper('Casos novos', classes,
-    <DefaultLineChart
-      data={trofaEntries}
+    <MultiLineChart
+      dataArray={[
+        trofaEntries, trofaLineGenerator(240),
+        trofaLineGenerator(480), trofaLineGenerator(960),
+      ]}
       dateRange={dateRange}
-      label="Casos novos na Trofa [por 100k hab.]"
-      theme={themeYellow}
+      labels={[
+        'Casos novos na Trofa [por 100k hab.]', 'Risco elevado',
+        'Risco muito elevado', 'Risco extremamente elevado'
+      ]}
+      themes={[themeYellow, severityTheme1, severityTheme2, severityTheme3]}
     />,
     <DefaultLineChart
       data={northEntries}

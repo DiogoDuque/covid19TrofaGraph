@@ -1,6 +1,10 @@
-function strToDate(dateStr: string) {
+function strToDate(dateStr: string): Date {
   const parts = dateStr.split('-');
   return new Date(Number(parts[2]), Number(parts[1]), Number(parts[0]));
+}
+
+export function dateToStr(date: Date): string {
+  return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 }
 
 export default class Entry {
