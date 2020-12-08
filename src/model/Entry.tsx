@@ -1,6 +1,6 @@
 function strToDate(dateStr: string): Date {
   const parts = dateStr.split('-');
-  return new Date(Number(parts[2]), Number(parts[1]), Number(parts[0]));
+  return new Date(Number(parts[2]), Number(parts[1])-1, Number(parts[0]));
 }
 
 export function dateToStr(date: Date): string {

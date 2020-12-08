@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
 const App: () => JSX.Element = (): JSX.Element => {
   const classes = useStyles();
   const [isFetching, setIsFetching]: [boolean, Function] = useState(true);
-  const [dateRange, setDateRange]: [number, Function] = useState(30);
+  const [dateRange, setDateRange]: [number, Function] = useState(60);
 
   const [trofaNewEntries, setTrofaEntries]: [Entry[], Function] = useState([]);
   const [ptEntries, setPtEntries]: [PortugalEntries, Function] = useState(new PortugalEntries());
@@ -83,6 +83,7 @@ const App: () => JSX.Element = (): JSX.Element => {
           onChange={e => setDateRange(e.target.value)}
         >
           <MenuItem value={30}>30 dias</MenuItem>
+          <MenuItem value={60}>60 dias</MenuItem>
           <MenuItem value={90}>90 dias</MenuItem>
           <MenuItem value={999999}>Desde sempre</MenuItem>
         </Select>
