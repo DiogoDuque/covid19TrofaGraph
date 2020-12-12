@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { chartGroupWrapper, getEntriesLineGenerator } from "../utils/chartUtils";
+import { chartGroupWrapper } from "../utils/chartUtils";
+import { getEntriesLineGenerator } from '../utils/EntriesOps';
 import DefaultLineChart from "./templates/DefaultLineChart";
 import MultiLineChart from "./templates/MultiLineChart";
 import { themeYellow, severityTheme1, severityTheme2, severityTheme3 } from "../config/themes";

@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 import Entry from '../../model/Entry';
-import { getEntriesSince, getChartOptions, getMultipleChartData } from '../../utils/chartUtils';
+import { getChartOptions, getMultipleChartData } from '../../utils/chartUtils';
+import { getEntriesSince } from '../../utils/EntriesOps';
 
 const MultiLineChart = ({ dataArray, dateRange, labels, themes, zeroBased }) => {
   const lastNEntriesArray = dataArray.map(d=>getEntriesSince(dateRange, d));

@@ -7,7 +7,7 @@ import PortugalEntries from './model/PortugalEntries';
 import Entry from './model/Entry';
 import { getTownData, getPortugalData } from './utils/fetchData';
 import NewCasesCharts from './chart/NewCasesCharts';
-import { derivateEntryValues } from './utils/chartUtils';
+import { derivateEntryValues } from './utils/EntriesOps';
 import GeneralCharts from './chart/GeneralCharts';
 
 const useStyles = makeStyles(() => ({

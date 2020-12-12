@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 import Entry from '../../model/Entry';
-import { getEntriesSince, getChartOptions, getChartData } from '../../utils/chartUtils';
+import { getChartOptions, getChartData } from '../../utils/chartUtils';
+import { getEntriesSince } from '../../utils/EntriesOps';
 
 const DefaultLineChart = ({ data, dateRange, label, theme, zeroBased }) => {
   const lastNEntries = getEntriesSince(dateRange, data);
