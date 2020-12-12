@@ -19,7 +19,7 @@ const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, clas
       ]}
       dateRange={dateRange}
       labels={[
-        'Casos novos na Trofa [por 100k hab.]', 'Risco elevado',
+        'Incidência na Trofa (a 14 dias p/ 100k hab.)', 'Risco elevado',
         'Risco muito elevado', 'Risco extremamente elevado'
       ]}
       themes={[themeYellow, severityTheme1, severityTheme2, severityTheme3]}
