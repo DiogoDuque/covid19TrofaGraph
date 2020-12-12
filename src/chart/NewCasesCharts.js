@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { chartGroupWrapper } from "../utils/chartUtils";
-import { getEntriesLineGenerator } from '../utils/EntriesOps';
-import DefaultLineChart from "./templates/DefaultLineChart";
+import { getEntriesLineGenerator, smoothEntryValues } from '../utils/EntriesOps';
 import MultiLineChart from "./templates/MultiLineChart";
-import { themeYellow, severityTheme1, severityTheme2, severityTheme3 } from "../config/themes";
+import { themeYellow, themeGreyTransparent, severityTheme1, severityTheme2, severityTheme3 } from "../config/themes";
 import Entry from "../model/Entry";
 import PortugalEntries from "../model/PortugalEntries";
 
 const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, classes }) => {
   const trofaLineGenerator = getEntriesLineGenerator(trofaEntries);
   return chartGroupWrapper('Casos novos', classes,
+
+    // #### TROFA ####
     <MultiLineChart
       dataArray={[
         trofaEntries, trofaLineGenerator(240),
@@ -23,17 +24,21 @@ const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, clas
       ]}
       themes={[themeYellow, severityTheme1, severityTheme2, severityTheme3]}
     />,
-    <DefaultLineChart
-      data={northEntries}
+
+    // #### NORTE ####
+    <MultiLineChart
+    dataArray={[northEntries, smoothEntryValues(northEntries)]}
       dateRange={dateRange}
-      label="Casos novos no Norte"
-      theme={themeYellow}
+      labels={['Casos novos no Norte', '']}
+      themes={[themeYellow, themeGreyTransparent]}
     />,
-    <DefaultLineChart
-      data={ptEntries.newConfirmedPt}
+
+    // #### PORTUGAL ####
+    <MultiLineChart
+      dataArray={[ptEntries.newConfirmedPt, smoothEntryValues(ptEntries.newConfirmedPt)]}
       dateRange={dateRange}
-      label="Casos novos em Portugal"
-      theme={themeYellow}
+      labels={['Casos novos em Portugal', '']}
+      themes={[themeYellow, themeGreyTransparent]}
     />
   );
 }

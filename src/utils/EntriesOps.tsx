@@ -37,3 +37,13 @@ export function derivateEntryValues(entries: Entry[]): Entry[] {
 
   return newCasesEntries;
 }
+
+export function smoothEntryValues(entries: Entry[], strength: number = 6) {
+  return entries.map((entry, index) => {
+    const startIndex = Math.max(0, index-strength);
+    const finishIndex = Math.min(entries.length, index+strength);
+    const relevantEntries = entries.slice(startIndex, finishIndex);
+    const sum = relevantEntries.reduce((acc, e) => acc + e.count, 0);
+    return new Entry(entry.dateStr, Math.round(sum / relevantEntries.length));
+  });
+}
