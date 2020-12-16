@@ -38,7 +38,7 @@ export function derivateEntryValues(entries: Entry[]): Entry[] {
   return newCasesEntries;
 }
 
-export function smoothEntryValues(entries: Entry[], strength: number = 6) {
+export function smoothEntryValues(entries: Entry[], strength: number = 7) {
   return entries.map((entry, index) => {
     const startIndex = Math.max(0, index-strength);
     const finishIndex = Math.min(entries.length, index+strength);
