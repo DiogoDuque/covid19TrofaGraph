@@ -65,8 +65,3 @@ export function getPortugalData(callback: Function) {
     })
     .catch(err => console.error(err));
 }
-
-export default {
-  getTownData,
-  getPortugalData,
-}
