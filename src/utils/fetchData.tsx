@@ -1,7 +1,7 @@
 import { Readable } from 'stream';
 import Csv from 'csv-parser';
 import Entry from '../model/Entry';
-import PortugalEntries from '../model/PortugalEntries';
+import { EntriesAggregatorBuilder, KEY } from '../model/EntriesAggregator';
 
 function _getDataFromSource(sourceFile: string): Promise<Response> {
   const url = 'https://raw.githubusercontent.com/dssg-pt/covid19pt-data/master/'+sourceFile;
@@ -36,32 +36,29 @@ export function getTownData(town: string, callback: Function) {
 }
 
 export function getPortugalData(callback: Function) {
-  _getDataFromSource('data.csv')
+  const filename = 'data.csv';
+  _getDataFromSource(filename)
     .then((response: Response) => {
       if (response && response.status === 200)
         return response.text();
     })
     .then(responseData => {
-      const ptConfirmedEntries: Entry[] = [];
-      const northConfirmedEntries: Entry[] = [];
-      const ptNewConfirmedEntries: Entry[] = [];
-      const ptActiveEntries: Entry[] = [];
-      const hospitalizedEntries: Entry[] = [];
-      const hospitalizedIcuEntries: Entry[] = [];
+      const builder = new EntriesAggregatorBuilder(filename);
       const stream = new Readable();
       stream.push(responseData);
       stream.push(null);
       stream
         .pipe(Csv())
         .on('data', data => {
-          ptConfirmedEntries.push(new Entry(data.data, data.confirmados));
-          northConfirmedEntries.push(new Entry(data.data, data.confirmados_arsnorte));
-          ptNewConfirmedEntries.push(new Entry(data.data, data.confirmados_novos));
-          ptActiveEntries.push(new Entry(data.data, data.ativos));
-          hospitalizedEntries.push(new Entry(data.data, data.internados));
-          hospitalizedIcuEntries.push(new Entry(data.data, data.internados_uci));
+          builder
+            .addEntry(KEY.CONFIRMED_PT, new Entry(data.data, data.confirmados))
+            .addEntry(KEY.CONFIRMED_NORTH, new Entry(data.data, data.confirmados_arsnorte))
+            .addEntry(KEY.NEWCASES_PT, new Entry(data.data, data.confirmados_novos))
+            .addEntry(KEY.ACTIVE_PT, new Entry(data.data, data.ativos))
+            .addEntry(KEY.HOSPITALIZED, new Entry(data.data, data.internados))
+            .addEntry(KEY.HOSPITALIZED_ICU, new Entry(data.data, data.internados_uci))
         })
-        .on('end', () => callback(new PortugalEntries(ptConfirmedEntries, northConfirmedEntries, ptNewConfirmedEntries, ptActiveEntries, hospitalizedEntries, hospitalizedIcuEntries)));
+        .on('end', () => callback(builder.build()));
     })
     .catch(err => console.error(err));
 }

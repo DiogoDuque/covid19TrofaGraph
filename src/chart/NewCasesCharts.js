@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { chartGroupWrapper } from "../utils/chartUtils";
-import { getEntriesLineGenerator, smoothEntryValues } from '../utils/EntriesOps';
+import { getEntriesLineGenerator, smoothEntryValues, derivateEntryValues } from '../utils/EntriesOps';
 import MultiLineChart from "./templates/MultiLineChart";
 import { themeYellow, themeGreyTransparent, severityTheme1, severityTheme2, severityTheme3 } from "../config/themes";
 import Entry from "../model/Entry";
-import PortugalEntries from "../model/PortugalEntries";
+import { EntriesAggregator, KEY } from "../model/EntriesAggregator";
 
-const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, classes }) => {
+const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
   const trofaLineGenerator = getEntriesLineGenerator(trofaEntries);
+  const northEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_NORTH));
   return chartGroupWrapper('Casos novos', classes,
 
     // #### TROFA ####
@@ -35,7 +36,7 @@ const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, clas
 
     // #### PORTUGAL ####
     <MultiLineChart
-      dataArray={[ptEntries.newConfirmedPt, smoothEntryValues(ptEntries.newConfirmedPt)]}
+      dataArray={[ptEntries.getAll(KEY.NEWCASES_PT), smoothEntryValues(ptEntries.getAll(KEY.NEWCASES_PT))]}
       dateRange={dateRange}
       labels={['Casos novos em Portugal', '']}
       themes={[themeYellow, themeGreyTransparent]}
@@ -45,8 +46,7 @@ const NewCasesCharts = ({ trofaEntries, northEntries, ptEntries, dateRange, clas
 
 NewCasesCharts.propTypes = {
   trofaEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
-  northEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
-  ptEntries: PropTypes.instanceOf(PortugalEntries).isRequired,
+  ptEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
   dateRange: PropTypes.number.isRequired,
   classes: PropTypes.any.isRequired,
 };

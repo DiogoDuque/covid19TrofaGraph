@@ -3,11 +3,10 @@ import { AppBar, CircularProgress, FormControl, InputLabel, MenuItem, Select, Ty
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import PortugalEntries from './model/PortugalEntries';
+import { EntriesAggregator, KEY } from './model/EntriesAggregator';
 import Entry from './model/Entry';
 import { getTownData, getPortugalData } from './utils/fetchData';
 import NewCasesCharts from './chart/NewCasesCharts';
-import { derivateEntryValues } from './utils/EntriesOps';
 import GeneralCharts from './chart/GeneralCharts';
 
 const useStyles = makeStyles(() => ({
@@ -47,17 +46,15 @@ const App: () => JSX.Element = (): JSX.Element => {
   const [dateRange, setDateRange]: [number, Function] = useState(60);
 
   const [trofaNewEntries, setTrofaEntries]: [Entry[], Function] = useState([]);
-  const [ptEntries, setPtEntries]: [PortugalEntries, Function] = useState(new PortugalEntries());
+  const [ptEntries, setPtEntries]: [EntriesAggregator, Function] = useState(new EntriesAggregator('DUMMY'));
 
   let lastTownUpdate: string = "";
   let lastPtUpdate: string = "";
-  let northNewEntries: Entry[] = [];
 
 
   if(!isFetching) {
     lastTownUpdate = trofaNewEntries[trofaNewEntries.length-1].dateStr;
-    lastPtUpdate = ptEntries.confirmedPt[ptEntries.confirmedPt.length -1].dateStr;
-    northNewEntries = derivateEntryValues(ptEntries.confirmedNorth);
+    lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).dateStr;
   }
 
   useEffect(() => {
@@ -65,7 +62,7 @@ const App: () => JSX.Element = (): JSX.Element => {
     getPortugalData(setPtEntries);
   }, []);
   
-  if(isFetching && trofaNewEntries.length > 0 && ptEntries.confirmedPt.length > 0)
+  if(isFetching && trofaNewEntries.length > 0 && ptEntries.getAll(KEY.CONFIRMED_PT).length > 0)
     setIsFetching(false);
 
   return (
@@ -103,7 +100,7 @@ const App: () => JSX.Element = (): JSX.Element => {
         <br/>
         <GeneralCharts ptEntries={ptEntries} dateRange={dateRange} classes={classes} />
         <br/>
-        <NewCasesCharts trofaEntries={trofaNewEntries} dateRange={dateRange} northEntries={northNewEntries} ptEntries={ptEntries} classes={classes} />
+        <NewCasesCharts trofaEntries={trofaNewEntries} dateRange={dateRange} ptEntries={ptEntries} classes={classes} />
         <br/>
 
         <Card>
