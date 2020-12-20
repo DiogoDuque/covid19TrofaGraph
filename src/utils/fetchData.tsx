@@ -56,6 +56,7 @@ export function getPortugalData(callback: Function) {
             .addEntry(KEY.NEWCASES_PT, new Entry(data.data, data.confirmados_novos))
             .addEntry(KEY.ACTIVE_PT, new Entry(data.data, data.ativos))
             .addEntry(KEY.HOSPITALIZED, new Entry(data.data, data.internados))
+            .addEntry(KEY.HOSPITALIZED_NURSERY, new Entry(data.data, data.internados_enfermaria))
             .addEntry(KEY.HOSPITALIZED_ICU, new Entry(data.data, data.internados_uci))
         })
         .on('end', () => callback(builder.build()));

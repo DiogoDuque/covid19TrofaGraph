@@ -16,9 +16,9 @@ const GeneralCharts = ({ ptEntries, dateRange, classes }) => {
       zeroBased={true}
     />,
     <MultiLineChart
-      dataArray={[ptEntries.getAll(KEY.HOSPITALIZED), ptEntries.getAll(KEY.HOSPITALIZED_ICU)]}
+      dataArray={[ptEntries.getAll(KEY.HOSPITALIZED_NURSERY), ptEntries.getAll(KEY.HOSPITALIZED_ICU)]}
       dateRange={dateRange}
-      labels={["Internados em Portugal", "Internados em UCI em Portugal"]}
+      labels={["Internados em Enfermaria em Portugal", "Internados em UCI em Portugal"]}
       themes={[themeMagentaLight, themeMagentaDark]}
       zeroBased={true}
     />
