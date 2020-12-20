@@ -4,18 +4,17 @@ import { chartGroupWrapper } from "../utils/chartUtils";
 import { getEntriesLineGenerator, smoothEntryValues, derivateEntryValues } from '../utils/EntriesOps';
 import MultiLineChart from "./templates/MultiLineChart";
 import { themeYellow, themeGreyTransparent, severityTheme1, severityTheme2, severityTheme3 } from "../config/themes";
-import Entry from "../model/Entry";
 import { EntriesAggregator, KEY } from "../model/EntriesAggregator";
 
 const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
-  const trofaLineGenerator = getEntriesLineGenerator(trofaEntries);
+  const trofaLineGenerator = getEntriesLineGenerator(trofaEntries.getAll(KEY.TOWN_INCIDENCE));
   const northEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_NORTH));
   return chartGroupWrapper('Casos novos', classes,
 
     // #### TROFA ####
     <MultiLineChart
       dataArray={[
-        trofaEntries, trofaLineGenerator(240),
+        trofaEntries.getAll(KEY.TOWN_INCIDENCE), trofaLineGenerator(240),
         trofaLineGenerator(480), trofaLineGenerator(960),
       ]}
       dateRange={dateRange}
@@ -45,7 +44,7 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
 }
 
 NewCasesCharts.propTypes = {
-  trofaEntries: PropTypes.arrayOf(PropTypes.instanceOf(Entry)).isRequired,
+  trofaEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
   ptEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
   dateRange: PropTypes.number.isRequired,
   classes: PropTypes.any.isRequired,
