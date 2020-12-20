@@ -2,6 +2,7 @@
 If you are looking for the dashboard with all the charts, go [here](https://diogoduque.github.io/covid19TrofaGraph/).
 
 This is a small project I made to easily see some simple but specific statistics about the Covid19 state of things in my area.
+The [dssg-pt/covid19pt-data](https://github.com/dssg-pt/covid19pt-data) repo is used as a data source.
 
 ## To run it locally
 ```bash
