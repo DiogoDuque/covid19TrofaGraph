@@ -34,7 +34,7 @@ export function getTownData(town: string, callback: Function) {
           data.concelho === town
           && builder
             .addEntry(KEY.TOWN_INCIDENCE, new Entry(data.data, data.incidencia))
-            .addEntry(KEY.TOWN_INCIDENCE_TENDENCY, new Entry(data.data, data.tendencia_desc)))
+        )
         .on('end', () => callback(builder.build()));
     })
     .catch(err => console.error(err));
@@ -55,14 +55,19 @@ export function getPortugalData(callback: Function) {
       stream
         .pipe(Csv())
         .on('data', data => {
-          builder
-            .addEntry(KEY.CONFIRMED_PT, new Entry(data.data, data.confirmados))
-            .addEntry(KEY.CONFIRMED_NORTH, new Entry(data.data, data.confirmados_arsnorte))
-            .addEntry(KEY.NEWCASES_PT, new Entry(data.data, data.confirmados_novos))
-            .addEntry(KEY.ACTIVE_PT, new Entry(data.data, data.ativos))
-            .addEntry(KEY.HOSPITALIZED, new Entry(data.data, data.internados))
-            .addEntry(KEY.HOSPITALIZED_NURSERY, new Entry(data.data, data.internados_enfermaria))
-            .addEntry(KEY.HOSPITALIZED_ICU, new Entry(data.data, data.internados_uci))
+          [
+            KEY.CONFIRMED_PT,
+            KEY.CONFIRMED_NORTH,
+            KEY.CONFIRMED_CENTER,
+            KEY.CONFIRMED_LISBOA_TEJO,
+            KEY.CONFIRMED_ALENTEJO,
+            KEY.CONFIRMED_ALGARVE,
+            KEY.NEWCASES_PT,
+            KEY.ACTIVE_PT,
+            KEY.HOSPITALIZED,
+            KEY.HOSPITALIZED_NURSERY,
+            KEY.HOSPITALIZED_ICU
+          ].forEach(key => builder.addEntry(key, new Entry(data.data, data[key])))
         })
         .on('end', () => callback(builder.build()));
     })

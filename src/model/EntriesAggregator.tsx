@@ -1,15 +1,18 @@
 import Entry from './Entry';
 
 export const KEY = {
-  CONFIRMED_PT: 'CONFIRMED_PT',
-  CONFIRMED_NORTH: 'CONFIRMED_NORTH',
-  NEWCASES_PT: 'NEWCASES_PT',
-  ACTIVE_PT: 'ACTIVE_PT',
-  HOSPITALIZED: 'HOSPITALIZED',
-  HOSPITALIZED_NURSERY: 'HOSPITALIZED_NURSERY',
-  HOSPITALIZED_ICU: 'HOSPITALIZED_ICU',
-  TOWN_INCIDENCE: 'TOWN_INCIDENCE',
-  TOWN_INCIDENCE_TENDENCY: 'TOWN_INCIDENCE_TENDENCY',
+  CONFIRMED_PT: 'confirmados',
+  CONFIRMED_NORTH: 'confirmados_arsnorte',
+  CONFIRMED_CENTER: 'confirmados_arscentro',
+  CONFIRMED_LISBOA_TEJO: 'confirmados_arslvt',
+  CONFIRMED_ALENTEJO: 'confirmados_arsalentejo',
+  CONFIRMED_ALGARVE: 'confirmados_arsalgarve',
+  NEWCASES_PT: 'confirmados_novos',
+  ACTIVE_PT: 'ativos',
+  HOSPITALIZED: 'internados',
+  HOSPITALIZED_NURSERY: 'internados_enfermaria',
+  HOSPITALIZED_ICU: 'internados_uci',
+  TOWN_INCIDENCE: 'incidencia',
 }
 
 export class EntriesAggregator {
