@@ -40,6 +40,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const App: () => JSX.Element = (): JSX.Element => {
+  // ========== DEFINITIONS ==========
   const classes = useStyles();
   const [isFetching, setIsFetching]: [boolean, Function] = useState(true);
   const [dateRange, setDateRange]: [number, Function] = useState(60);
@@ -51,19 +52,22 @@ const App: () => JSX.Element = (): JSX.Element => {
   let lastPtUpdate: string = "";
 
 
-  if (!isFetching) {
-    lastTownUpdate = trofaEntries.getLast(KEY.TOWN_INCIDENCE).dateStr;
-    lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).dateStr;
-  }
-
+  // ========== LOGIC ==========
   useEffect(() => {
     getTownData('TROFA', setTrofaEntries);
     getPortugalData(setPtEntries);
   }, []);
 
+  if (!isFetching) {
+    lastTownUpdate = trofaEntries.getLast(KEY.TOWN_INCIDENCE).dateStr;
+    lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).dateStr;
+  }
+
   if (isFetching && trofaEntries.getAll(KEY.TOWN_INCIDENCE).length > 0 && ptEntries.getAll(KEY.CONFIRMED_PT).length > 0)
     setIsFetching(false);
 
+
+  // ========== RENDER ==========
   return (
     <div className={classes.root}>
       { isFetching
