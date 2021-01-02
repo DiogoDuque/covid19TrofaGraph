@@ -32,8 +32,10 @@ export function getTownData(town: string, callback: Function) {
         .pipe(Csv())
         .on('data', data =>
           data.concelho === town
-          && builder
-            .addEntry(KEY.TOWN_INCIDENCE, new Entry(data.data, data.incidencia))
+          && [
+            KEY.TOWN_INCIDENCE_14,
+            KEY.TOWN_CONFIRMED_14
+          ].forEach(key => builder.addEntry(key, new Entry(data.data, data[key])))
         )
         .on('end', () => callback(builder.build()));
     })

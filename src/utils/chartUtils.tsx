@@ -54,10 +54,22 @@ export const getChartOptions = (beginAtZero=false, suggestedMin=null, suggestedM
   },
 });
 
-/** CHART WRAPPERS */
+/** HOF WRAPPERS */
+
+const cardWrapper = (element: JSX.Element, classes: any): JSX.Element => (
+  <Grid item xs={6} md={3}>
+    { element }
+  </Grid>
+);
+
+export const cardGroupWrapper = (classes: any, ...components: JSX.Element[]): JSX.Element => (
+  <Grid container spacing={1} direction="row" alignItems="center" justify="center">
+    { components.map(component => cardWrapper(component, classes)) }
+  </Grid>
+);
 
 let key=0;
-export const chartWrapper = (chartElement: JSX.Element, classes: any): JSX.Element => (
+const chartWrapper = (chartElement: JSX.Element, classes: any): JSX.Element => (
   <Grid item xs={12} key={key++}>
     <div className={classes.chartContainer}>
       {chartElement}

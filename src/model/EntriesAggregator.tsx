@@ -12,10 +12,11 @@ export const KEY = {
   HOSPITALIZED: 'internados',
   HOSPITALIZED_NURSERY: 'internados_enfermaria',
   HOSPITALIZED_ICU: 'internados_uci',
-  TOWN_INCIDENCE: 'incidencia',
+  TOWN_INCIDENCE_14: 'incidencia',
+  TOWN_CONFIRMED_14: 'confirmados_14',
 }
 
-export class EntriesAggregator {
+export default class EntriesAggregator {
   _name: string;
   constructor(name: string) {
     this._name = name;

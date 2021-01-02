@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { chartGroupWrapper } from "../utils/chartUtils";
-import DefaultLineChart from "./templates/DefaultLineChart";
-import MultiLineChart from "./templates/MultiLineChart";
-import { themeMagenta, themeMagentaDark, themeMagentaLight } from "../config/themes";
-import { EntriesAggregator, KEY } from "../model/EntriesAggregator";
+import { chartGroupWrapper } from "../../utils/chartUtils";
+import DefaultLineChart from "../chart/DefaultLineChart";
+import MultiLineChart from "../chart/MultiLineChart";
+import { themeMagenta, themeMagentaDark, themeMagentaLight } from "../../config/themes";
+import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
 
 const GeneralCharts = ({ ptEntries, dateRange, classes }) => {
   return chartGroupWrapper('Casos ativos', classes,

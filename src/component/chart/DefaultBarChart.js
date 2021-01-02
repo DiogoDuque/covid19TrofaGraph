@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
-import Entry from '../model/Entry';
-import { filterLastNDays, getChartOptions, getChartData } from '../utils/chartUtils';
+import Entry from '../../model/Entry';
+import { filterLastNDays, getChartOptions, getChartData } from '../../utils/chartUtils';
 
 const DefaultBarChart = ({ data, datapointsCount, label, theme, zeroBased }) => {
   const lastNEntries = filterLastNDays(data, datapointsCount);

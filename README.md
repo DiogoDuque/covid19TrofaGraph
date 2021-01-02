@@ -21,5 +21,5 @@ npm run deploy
 
 
 ## Future ideas
-* Death/recovered cases evolution chart
+* ~~Death/recovered cases evolution chart~~ (impossible due to lack of data)
 * Table, split by age group, with absolute number of infecteds and also relative when comparing to demographics of age group

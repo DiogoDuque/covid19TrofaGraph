@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { chartGroupWrapper } from "../utils/chartUtils";
-import { getEntriesLineGenerator, smoothEntryValues, derivateEntryValues } from '../utils/EntriesOps';
-import MultiLineChart from "./templates/MultiLineChart";
+import { chartGroupWrapper } from "../../utils/chartUtils";
+import { getEntriesLineGenerator, smoothEntryValues, derivateEntryValues } from '../../utils/EntriesOps';
+import MultiLineChart from "../chart/MultiLineChart";
 import {
   themeYellow, themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG,
   themeGreyTransparent, severityTheme1, severityTheme2, severityTheme3
-} from "../config/themes";
-import { EntriesAggregator, KEY } from "../model/EntriesAggregator";
+} from "../../config/themes";
+import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
 
 const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
-  const trofaLineGenerator = getEntriesLineGenerator(trofaEntries.getAll(KEY.TOWN_INCIDENCE));
+  const trofaLineGenerator = getEntriesLineGenerator(trofaEntries.getAll(KEY.TOWN_INCIDENCE_14));
   const northEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_NORTH));
   const centerEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_CENTER));
   const lisbonEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_LISBOA_TEJO));
@@ -21,7 +21,7 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
     // #### TROFA ####
     <MultiLineChart
       dataArray={[
-        trofaEntries.getAll(KEY.TOWN_INCIDENCE), trofaLineGenerator(240),
+        trofaEntries.getAll(KEY.TOWN_INCIDENCE_14), trofaLineGenerator(240),
         trofaLineGenerator(480), trofaLineGenerator(960),
       ]}
       dateRange={dateRange}
