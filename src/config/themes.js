@@ -39,7 +39,7 @@ export const themeGreenNoBG = getThemeFromRGB(0, 255, 80, false);
 
 
 // RED
-export const themeRed = getThemeFromRGB(255, 80, 0);
+export const themeRed = getThemeFromRGB(210, 70, 30);
 
 
 // OTHERS
