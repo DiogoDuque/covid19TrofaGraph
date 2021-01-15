@@ -4,7 +4,7 @@ import { chartGroupWrapper } from "../../utils/chartUtils";
 import { getEntriesLineGenerator, smoothEntryValues, derivateEntryValues } from '../../utils/EntriesOps';
 import MultiLineChart from "../chart/MultiLineChart";
 import {
-  themeYellow, themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG,
+  thrneRed, themeYellow, themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG,
   themeGreyTransparent, severityTheme1, severityTheme2, severityTheme3
 } from "../../config/themes";
 import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
@@ -17,6 +17,14 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
   const alentejoEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALENTEJO));
   const algarveEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALGARVE));
   return chartGroupWrapper('Casos novos', classes,
+
+    // #### PORTUGAL ####
+    <MultiLineChart
+      dataArray={[ptEntries.getAll(KEY.NEWCASES_PT), smoothEntryValues(ptEntries.getAll(KEY.NEWCASES_PT))]}
+      dateRange={dateRange}
+      labels={['Casos novos em Portugal', '']}
+      themes={[themeRed, themeGreyTransparent]}
+    />,
 
     // #### TROFA ####
     <MultiLineChart
@@ -32,15 +40,7 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
       themes={[themeYellow, severityTheme1, severityTheme2, severityTheme3]}
     />,
 
-    // #### NORTE ####
-    <MultiLineChart
-    dataArray={[northEntries, smoothEntryValues(northEntries)]}
-      dateRange={dateRange}
-      labels={['Casos novos no Norte', '']}
-      themes={[themeYellow, themeGreyTransparent]}
-    />,
-
-    // #### RESTO DE PORTUGAL ####
+    // #### ZONAS DE PORTUGAL ####
     <MultiLineChart
     dataArray={[northEntries, centerEntries, lisbonEntries, alentejoEntries, algarveEntries]}
       dateRange={dateRange}
@@ -50,11 +50,11 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
       themes={[themeYellowNoBG, themeMagentaNoBG, themeCyanNoBG, themeBlueNoBG, themeGreenNoBG]}
     />,
 
-    // #### PORTUGAL ####
+    // #### NORTE ####
     <MultiLineChart
-      dataArray={[ptEntries.getAll(KEY.NEWCASES_PT), smoothEntryValues(ptEntries.getAll(KEY.NEWCASES_PT))]}
+    dataArray={[northEntries, smoothEntryValues(northEntries)]}
       dateRange={dateRange}
-      labels={['Casos novos em Portugal', '']}
+      labels={['Casos novos no Norte', '']}
       themes={[themeYellow, themeGreyTransparent]}
     />
   );
