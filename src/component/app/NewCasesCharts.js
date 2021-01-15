@@ -4,7 +4,7 @@ import { chartGroupWrapper } from "../../utils/chartUtils";
 import { getEntriesLineGenerator, smoothEntryValues, derivateEntryValues } from '../../utils/EntriesOps';
 import MultiLineChart from "../chart/MultiLineChart";
 import {
-  thrneRed, themeYellow, themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG,
+  themeRed, themeYellow, themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG,
   themeGreyTransparent, severityTheme1, severityTheme2, severityTheme3
 } from "../../config/themes";
 import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
