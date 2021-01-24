@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { chartGroupWrapper } from "../../utils/chartUtils";
 import { getEntriesLineGenerator, smoothEntryValues, derivateEntryValues } from '../../utils/EntriesOps';
 import MultiLineChart from "../chart/MultiLineChart";
@@ -7,16 +6,23 @@ import {
   themeRed, themeYellow, themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG,
   themeGreyTransparent, severityTheme1, severityTheme2, severityTheme3
 } from "../../config/themes";
-import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
+import { KEY } from "../../model/EntriesAggregator";
+import EntriesStore from "../../store/EntriesStore";
+import GeneralStore from "../../store/GeneralStore";
 
-const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange }) => {
+const NewCasesCharts = () => {
+  const styles = GeneralStore.useState(s => s.styles);
+  const trofaEntries = EntriesStore.useState(s => s.trofaEntries);
+  const ptEntries = EntriesStore.useState(s => s.portugalEntries);
+  const dateRange = EntriesStore.useState(s => s.dateRange);
+
   const trofaLineGenerator = getEntriesLineGenerator(trofaEntries.getAll(KEY.TOWN_INCIDENCE_14));
   const northEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_NORTH));
   const centerEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_CENTER));
   const lisbonEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_LISBOA_TEJO));
   const alentejoEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALENTEJO));
   const algarveEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALGARVE));
-  return chartGroupWrapper('Casos novos',
+  return chartGroupWrapper('Casos novos', styles,
 
     // #### PORTUGAL ####
     <MultiLineChart
@@ -59,11 +65,5 @@ const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange }) => {
     />
   );
 }
-
-NewCasesCharts.propTypes = {
-  trofaEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
-  ptEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
-  dateRange: PropTypes.number.isRequired,
-};
 
 export default NewCasesCharts;

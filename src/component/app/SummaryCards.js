@@ -1,10 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cardGroupWrapper } from '../../utils/chartUtils';
-import EntriesAggregator, { KEY } from '../../model/EntriesAggregator';
+import { KEY } from '../../model/EntriesAggregator';
 import InfoCard from '../card/InfoCard';
+import EntriesStore from "../../store/EntriesStore";
 
-const SummaryCards = ({ ptEntries, trofaEntries }) => {
+const SummaryCards = () => {
+  const ptEntries = EntriesStore.useState(s => s.portugalEntries);
+  const trofaEntries = EntriesStore.useState(s => s.trofaEntries);
+
   return cardGroupWrapper(
     <InfoCard title="Casos ativos em Portugal" entry={ptEntries.getLast(KEY.ACTIVE_PT)} />,
     <InfoCard title="Casos novos em Portugal" entry={ptEntries.getLast(KEY.NEWCASES_PT)} />,
@@ -12,10 +15,5 @@ const SummaryCards = ({ ptEntries, trofaEntries }) => {
     <InfoCard title="Casos novos (14d) na Trofa" entry={trofaEntries.getLast(KEY.TOWN_CONFIRMED_14)} />,
   );
 }
-
-SummaryCards.propTypes = {
-  ptEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
-  trofaEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
-};
 
 export default SummaryCards;

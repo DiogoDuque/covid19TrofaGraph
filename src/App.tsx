@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 import EntriesAggregator, { KEY } from './model/EntriesAggregator';
 import { getTownData, getPortugalData } from './utils/fetchData';
@@ -8,25 +9,56 @@ import TextCard from './component/card/TextCard';
 import MyHeader from './component/app/MyHeader';
 import MyFooter from './component/app/MyFooter';
 import SummaryCards from './component/app/SummaryCards';
-import styles from './config/styles';
+import EntriesStore from './store/EntriesStore';
+import GeneralStore from './store/GeneralStore';
 
+const useStyles = makeStyles(() => ({
+  root: {
+    'backgroundColor': '#f5f5f5',
+    flexGrow: 1,
+    display: 'flex',
+    'align-items': 'center',
+    'justify-content': 'center',
+    padding: 15,
+    paddingRight: 30,
+  },
+  chartContainer: {
+    position: 'relative',
+    margin: 'auto',
+    height: '50vh',
+    width: '90vw',
+  },
+  progress: {
+    float: 'none',
+    margin: '0 auto',
+  },
+  appBar: {
+    maxWidth: 170,
+    marginBottom: 20,
+    backgroundColor: '#e0e0e0',
+  },
+  formControl: {
+    margin: 10,
+    // minWidth: 120,
+  },
+}));
 
 const App: () => JSX.Element = (): JSX.Element => {
   // ========== DEFINITIONS ==========
+  const styles = useStyles();
+  GeneralStore.update(s => {s.styles = styles});
+
   const [isFetching, setIsFetching]: [boolean, Function] = useState(true);
-  const [dateRange, setDateRange]: [number, Function] = useState(60);
-
-  const [trofaEntries, setTrofaEntries]: [EntriesAggregator, Function] = useState(new EntriesAggregator('DUMMY'));
-  const [ptEntries, setPtEntries]: [EntriesAggregator, Function] = useState(new EntriesAggregator('DUMMY'));
-
+  const ptEntries = EntriesStore.useState(s => s.portugalEntries);
+  const trofaEntries = EntriesStore.useState(s => s.trofaEntries);
   let lastTownUpdate: string = "";
   let lastPtUpdate: string = "";
 
 
   // ========== LOGIC ==========
   useEffect(() => {
-    getTownData('TROFA', setTrofaEntries);
-    getPortugalData(setPtEntries);
+    getTownData('TROFA', (e: EntriesAggregator) => EntriesStore.update(s => {s.trofaEntries = e}));
+    getPortugalData((e: EntriesAggregator) => EntriesStore.update(s => {s.portugalEntries = e}));
   }, []);
 
   if (!isFetching) {
@@ -44,19 +76,18 @@ const App: () => JSX.Element = (): JSX.Element => {
       { isFetching
         ? <CircularProgress className={styles.progress} />
         : <div>
-            <MyHeader dateRange={dateRange} setDateRange={setDateRange}
-              lastPtUpdate={lastPtUpdate} lastTownUpdate={lastTownUpdate} />
+            <MyHeader />
             <TextCard>
               A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}.
               </TextCard>
 
             <br />
 
-            <SummaryCards ptEntries={ptEntries} trofaEntries={trofaEntries} />
+            <SummaryCards />
             <br/>
-            <GeneralCharts ptEntries={ptEntries} dateRange={dateRange} />
+            <GeneralCharts />
             <br />
-            <NewCasesCharts trofaEntries={trofaEntries} dateRange={dateRange} ptEntries={ptEntries} />
+            <NewCasesCharts />
             <br />
 
             <MyFooter />

@@ -1,13 +1,18 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { chartGroupWrapper } from "../../utils/chartUtils";
 import DefaultLineChart from "../chart/DefaultLineChart";
 import MultiLineChart from "../chart/MultiLineChart";
 import { themeMagenta, themeMagentaDark, themeMagentaLight } from "../../config/themes";
-import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
+import { KEY } from "../../model/EntriesAggregator";
+import EntriesStore from "../../store/EntriesStore";
+import GeneralStore from "../../store/GeneralStore";
 
-const GeneralCharts = ({ ptEntries, dateRange }) => {
-  return chartGroupWrapper('Casos ativos',
+const GeneralCharts = () => {
+  const styles = GeneralStore.useState(s => s.styles);
+  const ptEntries = EntriesStore.useState(s => s.portugalEntries);
+  const dateRange = EntriesStore.useState(s => s.dateRange);
+
+  return chartGroupWrapper('Casos ativos', styles,
     <DefaultLineChart
       data={ptEntries.getAll(KEY.ACTIVE_PT)}
       dateRange={dateRange}
@@ -24,10 +29,5 @@ const GeneralCharts = ({ ptEntries, dateRange }) => {
     />
   );
 }
-
-GeneralCharts.propTypes = {
-  ptEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
-  dateRange: PropTypes.number.isRequired,
-};
 
 export default GeneralCharts;

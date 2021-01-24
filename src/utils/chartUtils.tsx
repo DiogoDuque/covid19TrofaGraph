@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import Entry from "../model/Entry";
 import { getAdaptativePointRadius } from './EntriesOps';
-import styles from "../config/styles";
 
 /** CHART ARGUMENTS */
 
@@ -70,7 +69,7 @@ export const cardGroupWrapper = (...components: JSX.Element[]): JSX.Element => (
 );
 
 let key=0;
-const chartWrapper = (chartElement: JSX.Element): JSX.Element => (
+const chartWrapper = (chartElement: JSX.Element, styles: any): JSX.Element => (
   <Grid item xs={12} key={key++}>
     <div className={styles.chartContainer}>
       {chartElement}
@@ -78,13 +77,13 @@ const chartWrapper = (chartElement: JSX.Element): JSX.Element => (
   </Grid>
 );
 
-export const chartGroupWrapper = (title: String, ...components: JSX.Element[]) => (
+export const chartGroupWrapper = (title: String, styles: any, ...components: JSX.Element[]) => (
   <div>
     <Typography variant="h3" style={{ textAlign: 'center' }} gutterBottom>
       {title}
     </Typography>
     <Grid container spacing={3}>
-      {components.map(component => chartWrapper(component))}
+      {components.map(component => chartWrapper(component, styles))}
     </Grid>
   </div>
 );
