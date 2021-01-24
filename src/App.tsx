@@ -47,8 +47,6 @@ const useStyles = makeStyles(() => ({
 function getTabContent(tab: number) {
   switch (tab) {
     case 0:
-      return <SummaryCards />;
-    case 1:
       return (
         <div>
           <GeneralCharts />
@@ -60,6 +58,8 @@ function getTabContent(tab: number) {
           <RegionCharts />
         </div>
       );
+    case 1:
+      return <SummaryCards />;
     default:
       return (<p>Bug? ¯\_(ツ)_/¯</p>);
   }

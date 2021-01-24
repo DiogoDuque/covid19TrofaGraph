@@ -29,8 +29,8 @@ const MyHeader = () => {
           textColor="primary"
           aria-label="full width tabs example"
         >
-          <Tab label="Infos" />
           <Tab label="Gráficos" />
+          <Tab label="Infos" />
         </Tabs>
         </Toolbar>
     </AppBar>
