@@ -9,14 +9,14 @@ import {
 } from "../../config/themes";
 import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
 
-const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange, classes }) => {
+const NewCasesCharts = ({ trofaEntries, ptEntries, dateRange }) => {
   const trofaLineGenerator = getEntriesLineGenerator(trofaEntries.getAll(KEY.TOWN_INCIDENCE_14));
   const northEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_NORTH));
   const centerEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_CENTER));
   const lisbonEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_LISBOA_TEJO));
   const alentejoEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALENTEJO));
   const algarveEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALGARVE));
-  return chartGroupWrapper('Casos novos', classes,
+  return chartGroupWrapper('Casos novos',
 
     // #### PORTUGAL ####
     <MultiLineChart
@@ -64,7 +64,6 @@ NewCasesCharts.propTypes = {
   trofaEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
   ptEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
   dateRange: PropTypes.number.isRequired,
-  classes: PropTypes.any.isRequired,
 };
 
 export default NewCasesCharts;

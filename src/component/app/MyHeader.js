@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import styles from '../../config/styles';
 
-const MyHeader = ({classes, dateRange, setDateRange }) => (
-  <AppBar position="sticky" className={classes.appBar}>
-    <FormControl className={classes.formControl}>
+const MyHeader = ({dateRange, setDateRange }) => (
+  <AppBar position="sticky" className={styles.appBar}>
+    <FormControl className={styles.formControl}>
       <InputLabel id="time-label">Tempo</InputLabel>
       <Select
         labelId="time-label"
@@ -22,7 +23,6 @@ const MyHeader = ({classes, dateRange, setDateRange }) => (
 );
 
 MyHeader.propTypes = {
-  classes: PropTypes.any.isRequired,
   dateRange: PropTypes.number.isRequired,
   setDateRange: PropTypes.instanceOf(Function).isRequired,
   lastPtUpdate: PropTypes.string.isRequired,

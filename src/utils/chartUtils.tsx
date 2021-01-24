@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import Entry from "../model/Entry";
 import { getAdaptativePointRadius } from './EntriesOps';
+import styles from "../config/styles";
 
 /** CHART ARGUMENTS */
 
@@ -56,34 +57,34 @@ export const getChartOptions = (beginAtZero=false, suggestedMin=null, suggestedM
 
 /** HOF WRAPPERS */
 
-const cardWrapper = (element: JSX.Element, classes: any): JSX.Element => (
+const cardWrapper = (element: JSX.Element): JSX.Element => (
   <Grid item xs={6} md={3}>
     { element }
   </Grid>
 );
 
-export const cardGroupWrapper = (classes: any, ...components: JSX.Element[]): JSX.Element => (
+export const cardGroupWrapper = (...components: JSX.Element[]): JSX.Element => (
   <Grid container spacing={1} direction="row" alignItems="center" justify="center">
-    { components.map(component => cardWrapper(component, classes)) }
+    { components.map(component => cardWrapper(component)) }
   </Grid>
 );
 
 let key=0;
-const chartWrapper = (chartElement: JSX.Element, classes: any): JSX.Element => (
+const chartWrapper = (chartElement: JSX.Element): JSX.Element => (
   <Grid item xs={12} key={key++}>
-    <div className={classes.chartContainer}>
+    <div className={styles.chartContainer}>
       {chartElement}
     </div>
   </Grid>
 );
 
-export const chartGroupWrapper = (title: String, classes: any, ...components: JSX.Element[]) => (
+export const chartGroupWrapper = (title: String, ...components: JSX.Element[]) => (
   <div>
     <Typography variant="h3" style={{ textAlign: 'center' }} gutterBottom>
       {title}
     </Typography>
     <Grid container spacing={3}>
-      {components.map(component => chartWrapper(component, classes))}
+      {components.map(component => chartWrapper(component))}
     </Grid>
   </div>
 );

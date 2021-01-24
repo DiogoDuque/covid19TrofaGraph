@@ -6,8 +6,8 @@ import MultiLineChart from "../chart/MultiLineChart";
 import { themeMagenta, themeMagentaDark, themeMagentaLight } from "../../config/themes";
 import EntriesAggregator, { KEY } from "../../model/EntriesAggregator";
 
-const GeneralCharts = ({ ptEntries, dateRange, classes }) => {
-  return chartGroupWrapper('Casos ativos', classes,
+const GeneralCharts = ({ ptEntries, dateRange }) => {
+  return chartGroupWrapper('Casos ativos',
     <DefaultLineChart
       data={ptEntries.getAll(KEY.ACTIVE_PT)}
       dateRange={dateRange}
@@ -28,7 +28,6 @@ const GeneralCharts = ({ ptEntries, dateRange, classes }) => {
 GeneralCharts.propTypes = {
   ptEntries: PropTypes.instanceOf(EntriesAggregator).isRequired,
   dateRange: PropTypes.number.isRequired,
-  classes: PropTypes.any.isRequired,
 };
 
 export default GeneralCharts;
