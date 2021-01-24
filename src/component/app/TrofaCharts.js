@@ -15,7 +15,6 @@ const TrofaCharts = () => {
   const trofaLineGenerator = getEntriesLineGenerator(trofaEntries.getAll(KEY.TOWN_INCIDENCE_14));
   return chartGroupWrapper('Evolução na Trofa', styles,
   
-    // #### TROFA ####
     <MultiLineChart
       dataArray={[
         trofaEntries.getAll(KEY.TOWN_INCIDENCE_14), trofaLineGenerator(240),

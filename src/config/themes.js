@@ -44,6 +44,7 @@ export const themeRed = getThemeFromRGB(255, 80, 30);
 
 // OTHERS
 export const themeGreyTransparent = getThemeFromRGB(200, 200, 200, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});
+export const themeDark = getThemeFromRGB(20, 20, 20);
 
 export const severityTheme1 = getThemeFromRGB(255, 189, 0, false);
 export const severityTheme2 = getThemeFromRGB(255, 84, 0, false);

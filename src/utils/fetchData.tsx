@@ -68,7 +68,8 @@ export function getPortugalData(callback: Function) {
             KEY.ACTIVE_PT,
             KEY.HOSPITALIZED,
             KEY.HOSPITALIZED_NURSERY,
-            KEY.HOSPITALIZED_ICU
+            KEY.HOSPITALIZED_ICU,
+            KEY.DEAD_PT,
           ].forEach(key => builder.addEntry(key, new Entry(data.data, data[key])))
         })
         .on('end', () => callback(builder.build()));

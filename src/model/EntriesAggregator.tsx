@@ -14,6 +14,7 @@ export const KEY = {
   HOSPITALIZED_ICU: 'internados_uci',
   TOWN_INCIDENCE_14: 'incidencia',
   TOWN_CONFIRMED_14: 'confirmados_14',
+  DEAD_PT: 'obitos',
 }
 
 export default class EntriesAggregator {
