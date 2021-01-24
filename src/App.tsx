@@ -3,12 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 import EntriesAggregator, { KEY } from './model/EntriesAggregator';
 import { getTownData, getPortugalData } from './utils/fetchData';
-import NewCasesCharts from './component/app/NewCasesCharts';
-import GeneralCharts from './component/app/GeneralCharts';
 import TextCard from './component/card/TextCard';
 import MyHeader from './component/app/MyHeader';
 import MyFooter from './component/app/MyFooter';
 import SummaryCards from './component/app/SummaryCards';
+import GeneralCharts from './component/app/GeneralCharts';
+import NewCasesCharts from './component/app/PortugalCharts';
+import RegionCharts from './component/app/RegionCharts';
+import TrofaCharts from './component/app/TrofaCharts';
 import EntriesStore from './store/EntriesStore';
 import GeneralStore from './store/GeneralStore';
 
@@ -16,7 +18,6 @@ const useStyles = makeStyles(() => ({
   root: {
     'backgroundColor': '#f5f5f5',
     flexGrow: 1,
-    display: 'flex',
     'align-items': 'center',
     'justify-content': 'center',
     padding: 15,
@@ -43,6 +44,27 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+function getTabContent(tab: number) {
+  switch (tab) {
+    case 0:
+      return <SummaryCards />;
+    case 1:
+      return (
+        <div>
+          <GeneralCharts />
+          <br />
+          <NewCasesCharts />
+          <br />
+          <TrofaCharts />
+          <br />
+          <RegionCharts />
+        </div>
+      );
+    default:
+      return (<p>Bug? ¯\_(ツ)_/¯</p>);
+  }
+}
+
 const App: () => JSX.Element = (): JSX.Element => {
   // ========== DEFINITIONS ==========
   const styles = useStyles();
@@ -54,7 +76,7 @@ const App: () => JSX.Element = (): JSX.Element => {
   let lastTownUpdate: string = "";
   let lastPtUpdate: string = "";
   const tab: number = GeneralStore.useState(s => s.tab);
-  let tabContent = null;
+  let tabContent = getTabContent(tab);
 
 
   // ========== LOGIC ==========
@@ -70,24 +92,6 @@ const App: () => JSX.Element = (): JSX.Element => {
 
   if (isFetching && trofaEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0 && ptEntries.getAll(KEY.CONFIRMED_PT).length > 0)
     setIsFetching(false);
-  
-  switch (tab) {
-    case 0:
-      tabContent = <SummaryCards />;
-      break;
-    case 1:
-      tabContent = (
-        <div>
-          <GeneralCharts />
-          <br />
-          <NewCasesCharts />
-        </div>
-      );
-      break;
-    default:
-      tabContent=<p>Bug? ¯\_(ツ)_/¯</p>
-      break;
-  }
 
 
   // ========== RENDER ==========
