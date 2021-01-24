@@ -55,9 +55,9 @@ export const getChartOptions = (beginAtZero=false, suggestedMin=null, suggestedM
 });
 
 /** HOF WRAPPERS */
-
+let key=0;
 const cardWrapper = (element: JSX.Element): JSX.Element => (
-  <Grid item xs={6} md={3}>
+  <Grid key={key++} item xs={6} md={3}>
     { element }
   </Grid>
 );
@@ -68,7 +68,6 @@ export const cardGroupWrapper = (...components: JSX.Element[]): JSX.Element => (
   </Grid>
 );
 
-let key=0;
 const chartWrapper = (chartElement: JSX.Element, styles: any): JSX.Element => (
   <Grid item xs={12} key={key++}>
     <div className={styles.chartContainer}>

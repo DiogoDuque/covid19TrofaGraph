@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
     margin: '0 auto',
   },
   appBar: {
-    maxWidth: 170,
+    maxWidth: 500,
     marginBottom: 20,
     backgroundColor: '#e0e0e0',
   },
@@ -53,6 +53,8 @@ const App: () => JSX.Element = (): JSX.Element => {
   const trofaEntries = EntriesStore.useState(s => s.trofaEntries);
   let lastTownUpdate: string = "";
   let lastPtUpdate: string = "";
+  const tab: number = GeneralStore.useState(s => s.tab);
+  let tabContent = null;
 
 
   // ========== LOGIC ==========
@@ -68,6 +70,24 @@ const App: () => JSX.Element = (): JSX.Element => {
 
   if (isFetching && trofaEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0 && ptEntries.getAll(KEY.CONFIRMED_PT).length > 0)
     setIsFetching(false);
+  
+  switch (tab) {
+    case 0:
+      tabContent = <SummaryCards />;
+      break;
+    case 1:
+      tabContent = (
+        <div>
+          <GeneralCharts />
+          <br />
+          <NewCasesCharts />
+        </div>
+      );
+      break;
+    default:
+      tabContent=<p>Bug? ¯\_(ツ)_/¯</p>
+      break;
+  }
 
 
   // ========== RENDER ==========
@@ -82,12 +102,7 @@ const App: () => JSX.Element = (): JSX.Element => {
               </TextCard>
 
             <br />
-
-            <SummaryCards />
-            <br/>
-            <GeneralCharts />
-            <br />
-            <NewCasesCharts />
+            {tabContent}
             <br />
 
             <MyFooter />

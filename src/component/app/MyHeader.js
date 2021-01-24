@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { AppBar, FormControl, InputLabel, Select, MenuItem, Tab, Tabs, Toolbar } from '@material-ui/core';
 import EntriesStore from '../../store/EntriesStore';
 import GeneralStore from '../../store/GeneralStore';
 
@@ -7,6 +7,7 @@ const MyHeader = () => {
   const styles = GeneralStore.useState(s => s.styles);
   return (
     <AppBar position="sticky" className={styles.appBar}>
+      <Toolbar>
       <FormControl className={styles.formControl}>
         <InputLabel id="time-label">Tempo</InputLabel>
         <Select
@@ -21,8 +22,19 @@ const MyHeader = () => {
           <MenuItem value={999999}>Desde sempre</MenuItem>
         </Select>
       </FormControl>
+      <Tabs
+          value={GeneralStore.useState(s => s.tab)}
+          onChange={(_e, v) => GeneralStore.update(s => {s.tab = v})}
+          indicatorColor="primary"
+          textColor="primary"
+          aria-label="full width tabs example"
+        >
+          <Tab label="Infos" />
+          <Tab label="Gráficos" />
+        </Tabs>
+        </Toolbar>
     </AppBar>
-)
+  );
 };
 
 export default MyHeader;
