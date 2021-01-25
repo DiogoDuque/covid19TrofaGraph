@@ -1,12 +1,14 @@
 import React from "react";
 import { chartGroupWrapper } from "../../utils/chartUtils";
-import { smoothEntryValues, derivateEntryValues } from '../../utils/EntriesOps';
+import { derivateEntryValues, convertDailyCountToDailyIncidency } from '../../utils/EntriesOps';
 import MultiLineChart from "../chart/MultiLineChart";
 import {
-  themeYellow, themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG,
-  themeGreenNoBG, themeGreyTransparent
+  themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG
 } from "../../config/themes";
 import { KEY } from "../../model/EntriesAggregator";
+import {
+  POPULATION_NORTH, POPULATION_CENTER, POPULATION_LISBOA, POPULATION_ALENTEJO, POPULATION_ALGARVE
+} from '../../config/demographicValues';
 import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
 
@@ -20,6 +22,12 @@ const RegionCharts = () => {
   const lisbonEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_LISBOA_TEJO));
   const alentejoEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALENTEJO));
   const algarveEntries = derivateEntryValues(ptEntries.getAll(KEY.CONFIRMED_ALGARVE));
+  const northDailyIncidencyEntries = convertDailyCountToDailyIncidency(northEntries, POPULATION_NORTH);
+  const centerDailyIncidencyEntries = convertDailyCountToDailyIncidency(centerEntries, POPULATION_CENTER);
+  const lisbonDailyIncidencyEntries = convertDailyCountToDailyIncidency(lisbonEntries, POPULATION_LISBOA);
+  const alentejoDailyIncidencyEntries = convertDailyCountToDailyIncidency(alentejoEntries, POPULATION_ALENTEJO);
+  const algarveDailyIncidencyEntries = convertDailyCountToDailyIncidency(algarveEntries, POPULATION_ALGARVE);
+
   return chartGroupWrapper('Evolução regional', styles,
 
     // #### ZONAS DE PORTUGAL ####
@@ -32,13 +40,19 @@ const RegionCharts = () => {
       themes={[themeYellowNoBG, themeMagentaNoBG, themeCyanNoBG, themeBlueNoBG, themeGreenNoBG]}
     />,
 
-    // #### NORTE ####
+    // #### INCIDENCIA NAS ZONAS DE PORTUGAL ####
     <MultiLineChart
-    dataArray={[northEntries, smoothEntryValues(northEntries)]}
+      dataArray={[
+        northDailyIncidencyEntries, centerDailyIncidencyEntries, lisbonDailyIncidencyEntries,
+        alentejoDailyIncidencyEntries, algarveDailyIncidencyEntries
+      ]}
       dateRange={dateRange}
-      labels={['Casos novos no Norte', '']}
-      themes={[themeYellow, themeGreyTransparent]}
-    />
+      labels={[
+        'Incidência no Norte (a 1 dia p/ 100k hab.)', 'Incidência no Centro (a 1 dia p/ 100k hab.)',
+        'Incidência em Lisboa/V.Tejo (a 1 dia p/ 100k hab.)', 'Incidência no Alentejo (a 1 dia p/ 100k hab.)',
+        'Incidência no Algarve (a 1 dia p/ 100k hab.)']}
+      themes={[themeYellowNoBG, themeMagentaNoBG, themeCyanNoBG, themeBlueNoBG, themeGreenNoBG]}
+    />,
   );
 }
 

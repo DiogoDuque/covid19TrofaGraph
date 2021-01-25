@@ -47,3 +47,10 @@ export function smoothEntryValues(entries: Entry[], strength: number = 7) {
     return new Entry(entry.dateStr, Math.round(sum / relevantEntries.length));
   });
 }
+
+export function convertDailyCountToDailyIncidency(entries: Entry[], populationSize: number) {
+  return entries.map(entry => {
+    const incidency = Math.round(entry.count * 100000 / populationSize);
+    return new Entry(entry.dateStr, incidency);
+  });
+}
