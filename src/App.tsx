@@ -51,9 +51,9 @@ function getTabContent(tab: number) {
         <div>
           <GeneralCharts />
           <br />
-          <NewCasesCharts />
-          <br />
           <TrofaCharts />
+          <br />
+          <NewCasesCharts />
           <br />
           <RegionCharts />
         </div>

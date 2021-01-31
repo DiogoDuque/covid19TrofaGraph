@@ -1,6 +1,7 @@
 import Entry from './Entry';
 
 export const KEY = {
+  // data.csv
   CONFIRMED_PT: 'confirmados',
   CONFIRMED_NORTH: 'confirmados_arsnorte',
   CONFIRMED_CENTER: 'confirmados_arscentro',
@@ -12,9 +13,11 @@ export const KEY = {
   HOSPITALIZED: 'internados',
   HOSPITALIZED_NURSERY: 'internados_enfermaria',
   HOSPITALIZED_ICU: 'internados_uci',
+  DEAD_PT: 'obitos',
+
+  // data_concelhos_new.csv
   TOWN_INCIDENCE_14: 'incidencia',
   TOWN_CONFIRMED_14: 'confirmados_14',
-  DEAD_PT: 'obitos',
 }
 
 export default class EntriesAggregator {

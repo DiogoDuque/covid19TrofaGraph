@@ -32,10 +32,8 @@ export function getTownData(town: string, callback: Function) {
         .pipe(Csv())
         .on('data', data =>
           data.concelho === town
-          && [
-            KEY.TOWN_INCIDENCE_14,
-            KEY.TOWN_CONFIRMED_14
-          ].forEach(key => builder.addEntry(key, new Entry(data.data, data[key])))
+          && Object.values(KEY)
+          .forEach(key => data[key] && builder.addEntry(key, new Entry(data.data, data[key])))
         )
         .on('end', () => callback(builder.build()));
     })
@@ -57,20 +55,8 @@ export function getPortugalData(callback: Function) {
       stream
         .pipe(Csv())
         .on('data', data => {
-          [
-            KEY.CONFIRMED_PT,
-            KEY.CONFIRMED_NORTH,
-            KEY.CONFIRMED_CENTER,
-            KEY.CONFIRMED_LISBOA_TEJO,
-            KEY.CONFIRMED_ALENTEJO,
-            KEY.CONFIRMED_ALGARVE,
-            KEY.NEWCASES_PT,
-            KEY.ACTIVE_PT,
-            KEY.HOSPITALIZED,
-            KEY.HOSPITALIZED_NURSERY,
-            KEY.HOSPITALIZED_ICU,
-            KEY.DEAD_PT,
-          ].forEach(key => builder.addEntry(key, new Entry(data.data, data[key])))
+          Object.values(KEY)
+          .forEach(key => data[key] && builder.addEntry(key, new Entry(data.data, data[key])))
         })
         .on('end', () => callback(builder.build()));
     })

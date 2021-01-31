@@ -38,7 +38,7 @@ export function derivateEntryValues(entries: Entry[]): Entry[] {
   return newCasesEntries;
 }
 
-export function smoothEntryValues(entries: Entry[], strength: number = 7) {
+export function smoothEntryValues(entries: Entry[], strength: number = 7): Entry[] {
   return entries.map((entry, index) => {
     const startIndex = Math.max(0, index-strength);
     const finishIndex = Math.min(entries.length, index+strength);
@@ -48,7 +48,7 @@ export function smoothEntryValues(entries: Entry[], strength: number = 7) {
   });
 }
 
-export function convertDailyCountToDailyIncidency(entries: Entry[], populationSize: number) {
+export function convertDailyCountToDailyIncidency(entries: Entry[], populationSize: number): Entry[] {
   return entries.map(entry => {
     const incidency = Math.round(entry.count * 100000 / populationSize);
     return new Entry(entry.dateStr, incidency);
