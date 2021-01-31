@@ -62,7 +62,7 @@ export class EntriesAggregatorBuilder {
     this._aggregator = {};
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
 
@@ -72,7 +72,7 @@ export class EntriesAggregatorBuilder {
     return this;
   }
 
-  build() {
+  build(): EntriesAggregatorImpl {
     return new EntriesAggregatorImpl(this);
   }
 }
