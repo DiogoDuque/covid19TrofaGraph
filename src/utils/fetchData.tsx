@@ -1,7 +1,7 @@
 import { Readable } from 'stream';
 import Csv from 'csv-parser';
 import Entry from '../model/Entry';
-import { EntriesAggregatorBuilder, KEY } from '../model/EntriesAggregator';
+import { EntriesAggregatorBuilder, PtDataEntriesAggregatorBuilder, KEY } from '../model/EntriesAggregator';
 
 function _getDataFromSource(sourceFile: string): Promise<Response> {
   const url = 'https://raw.githubusercontent.com/dssg-pt/covid19pt-data/master/' + sourceFile;
@@ -48,7 +48,7 @@ export function getPortugalData(callback: Function) {
         return response.text();
     })
     .then(responseData => {
-      const builder = new EntriesAggregatorBuilder(filename);
+      const builder = new PtDataEntriesAggregatorBuilder(filename);
       const stream = new Readable();
       stream.push(responseData);
       stream.push(null);

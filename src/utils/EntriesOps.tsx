@@ -54,3 +54,20 @@ export function convertDailyCountToDailyIncidency(entries: Entry[], populationSi
     return new Entry(entry.dateStr, incidency);
   });
 }
+
+function mergeEntryValues(entries1: Entry[], entries2: Entry[], mergeOp: (e1: Entry, e2: Entry) => Entry) {
+  if((entries1.length !== entries2.length) || (entries1[0].dateStr !== entries2[0].dateStr)) {
+    console.error(`The two Entry[] don't seem mergeable!\n${entries1}\n${entries2}`);
+    return [];
+  }
+
+  const entries: Entry[] = [];
+  for(let i=0; i<entries1.length; i++) {
+    entries.push(mergeOp(entries1[i], entries2[i]));
+  }
+  return entries;
+}
+
+export function mergeEntryValuesBySum(entries1: Entry[], entries2: Entry[]) {
+  return mergeEntryValues(entries1, entries2, (e1, e2) => new Entry(e1.dateStr, e1.count + e2.count));
+}
