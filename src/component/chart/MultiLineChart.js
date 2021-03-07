@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
-import Entry from '../../model/Entry';
+import DateEntry from '../../model/DateEntry';
 import { getChartOptions, getMultipleChartData } from '../../utils/chartUtils';
 import { getEntriesSince } from '../../utils/EntriesOps';
 
@@ -30,7 +30,7 @@ const MultiLineChart = ({ dataArray, dateRange, labels, themes, zeroBased }) => 
 }
 
 MultiLineChart.propTypes = {
-  dataArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.instanceOf(Entry))).isRequired,
+  dataArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.instanceOf(DateEntry))).isRequired,
   dateRange: PropTypes.number.isRequired,
   labels: PropTypes.arrayOf(PropTypes.string.isRequired),
   themes: PropTypes.arrayOf(PropTypes.object.isRequired),

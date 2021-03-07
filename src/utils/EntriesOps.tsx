@@ -1,14 +1,5 @@
 import Entry from "../model/Entry";
-
-
-export function getAdaptativePointRadius(entries: Entry[]): number {
-  const width = window.screen.availWidth;
-  const count = entries.length;
-  const densityRatio = count/width;
-  const densityValue = densityRatio*12;
-  const retVal = Math.max(4-densityValue, 1);
-  return retVal;
-}
+import DateEntry from "../model/DateEntry";
 
 function getDateLimitFromRange(dateRange: number): Date {
   const dateLimit = new Date();
@@ -16,58 +7,58 @@ function getDateLimitFromRange(dateRange: number): Date {
   return dateLimit;
 }
 
-export function getEntriesLineGenerator(entries: Entry[]): (v: number) => Entry[] {
-  return v => entries.map(e => new Entry(e.dateStr, v));
+export function getEntriesLineGenerator<X>(entries: Entry<X>[]): (v: number) => Entry<X>[] {
+  return v => entries.map(e => e.buildNewWith(e.x, v));
 }
 
-export function getEntriesSince(dateRange: number, entries: Entry[]): Entry[] {
+export function getEntriesSince(dateRange: number, entries: DateEntry[]): DateEntry[] {
   const dateLimit = getDateLimitFromRange(dateRange);
   return entries.filter(e => e.date >= dateLimit);
 }
 
-export function derivateEntryValues(entries: Entry[]): Entry[] {
+export function derivateEntryValues<X>(entries: Entry<X>[]): Entry<X>[] {
   let prevEntry = entries[0];
-  const newCasesEntries = [new Entry(prevEntry.dateStr, 0)];
+  const newCasesEntries = [prevEntry.buildNewWith(prevEntry.x, 0)];
 
   for(let i=1; i<entries.length; i++) {
     const currEntry = entries[i];
-    newCasesEntries.push(new Entry(currEntry.dateStr, currEntry.count - prevEntry.count));
+    newCasesEntries.push(prevEntry.buildNewWith(currEntry.x, currEntry.y - prevEntry.y));
     prevEntry = currEntry;
   }
 
   return newCasesEntries;
 }
 
-export function smoothEntryValues(entries: Entry[], strength: number = 7): Entry[] {
+export function smoothEntryValues<X>(entries: Entry<X>[], strength: number = 7): Entry<X>[] {
   return entries.map((entry, index) => {
     const startIndex = Math.max(0, index-strength);
     const finishIndex = Math.min(entries.length, index+strength);
     const relevantEntries = entries.slice(startIndex, finishIndex);
-    const sum = relevantEntries.reduce((acc, e) => acc + e.count, 0);
-    return new Entry(entry.dateStr, Math.round(sum / relevantEntries.length));
+    const sum = relevantEntries.reduce((acc, e) => acc + e.y, 0);
+    return entry.buildNewWith(entry.x, Math.round(sum / relevantEntries.length));
   });
 }
 
-export function convertDailyCountToDailyIncidency(entries: Entry[], populationSize: number): Entry[] {
+export function convertDailyCountToDailyIncidency<X>(entries: Entry<X>[], populationSize: number): Entry<X>[] {
   return entries.map(entry => {
-    const incidency = Math.round(entry.count * 100000 / populationSize);
-    return new Entry(entry.dateStr, incidency);
+    const incidency = Math.round(entry.y * 100000 / populationSize);
+    return entry.buildNewWith(entry.x, incidency);
   });
 }
 
-function mergeEntryValues(entries1: Entry[], entries2: Entry[], mergeOp: (e1: Entry, e2: Entry) => Entry) {
-  if((entries1.length !== entries2.length) || (entries1[0].dateStr !== entries2[0].dateStr)) {
+function mergeEntryValues<E extends Entry<string>>(entries1: E[], entries2: E[], mergeOp: (e1: E, e2: E) => E) {
+  if((entries1.length !== entries2.length) || (entries1[0].x !== entries2[0].x)) {
     console.error(`The two Entry[] don't seem mergeable!\n${entries1}\n${entries2}`);
     return [];
   }
 
-  const entries: Entry[] = [];
+  const entries: E[] = [];
   for(let i=0; i<entries1.length; i++) {
     entries.push(mergeOp(entries1[i], entries2[i]));
   }
   return entries;
 }
 
-export function mergeEntryValuesBySum(entries1: Entry[], entries2: Entry[]) {
-  return mergeEntryValues(entries1, entries2, (e1, e2) => new Entry(e1.dateStr, e1.count + e2.count));
+export function mergeEntryValuesBySum(entries1: Entry<string>[], entries2: Entry<string>[]): Entry<string>[] {
+  return mergeEntryValues(entries1, entries2, (e1, e2) => e1.buildNewWith(e1.x, e1.y + e2.y));
 }

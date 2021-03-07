@@ -1,36 +1,23 @@
-function strToDate(dateStr: string): Date {
-  const parts = dateStr.split('-');
-  return new Date(Number(parts[2]), Number(parts[1])-1, Number(parts[0]));
-}
 
-export function dateToStr(date: Date): string {
-  return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
-}
+export default class Entry<X> {
+  protected _x: X;
+  protected _y: number;
 
-export default class Entry {
-  _dateStr: string;
-  _date: Date;
-  _count: number;
-
-  constructor(date: string, count: string|number) {
-    this._dateStr = date;
-    this._date = strToDate(date);
-
-    this._count = typeof count === 'number' ? count : parseInt(count);
-
-    if(isNaN(this._count))
-      this._count = 0;
+  constructor(x: X, y: number) {
+    this._x = x;
+    this._y = y;
   }
 
-  get dateStr(): string {
-    return this._dateStr;
+  
+  public get x() : X {
+    return this._x;
+  }
+  
+  public get y() : number {
+    return this._y;
   }
 
-  get date(): Date {
-    return this._date;
-  }
-
-  get count(): number {
-    return this._count;
+  buildNewWith(x: X, y: number): Entry<X> {
+    throw new Error('Method buildNewWith() is not implemented!');
   }
 }

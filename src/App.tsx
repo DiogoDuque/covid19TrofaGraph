@@ -13,6 +13,7 @@ import RegionCharts from './component/app/RegionCharts';
 import TrofaCharts from './component/app/TrofaCharts';
 import EntriesStore from './store/EntriesStore';
 import GeneralStore from './store/GeneralStore';
+import DateEntry from './model/DateEntry';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -81,13 +82,13 @@ const App: () => JSX.Element = (): JSX.Element => {
 
   // ========== LOGIC ==========
   useEffect(() => {
-    getTownData('TROFA', (e: EntriesAggregator) => EntriesStore.update(s => {s.trofaEntries = e}));
-    getPortugalData((e: EntriesAggregator) => EntriesStore.update(s => {s.portugalEntries = e}));
+    getTownData('TROFA', (e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.trofaEntries = e}));
+    getPortugalData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.portugalEntries = e}));
   }, []);
 
   if (!isFetching) {
-    lastTownUpdate = trofaEntries.getLast(KEY.TOWN_INCIDENCE_14).dateStr;
-    lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).dateStr;
+    lastTownUpdate = trofaEntries.getLast(KEY.TOWN_INCIDENCE_14).x;
+    lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).x;
   }
 
   if (isFetching && trofaEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0 && ptEntries.getAll(KEY.CONFIRMED_PT).length > 0)

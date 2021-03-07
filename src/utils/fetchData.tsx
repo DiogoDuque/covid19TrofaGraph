@@ -1,6 +1,6 @@
 import { Readable } from 'stream';
 import Csv from 'csv-parser';
-import Entry from '../model/Entry';
+import DateEntry from '../model/DateEntry';
 import { EntriesAggregatorBuilder, PtDataEntriesAggregatorBuilder, KEY } from '../model/EntriesAggregator';
 
 function _getDataFromSource(sourceFile: string): Promise<Response> {
@@ -33,7 +33,7 @@ export function getTownData(town: string, callback: Function) {
         .on('data', data =>
           data.concelho === town
           && Object.values(KEY)
-          .forEach(key => data[key] && builder.addEntry(key, new Entry(data.data, data[key])))
+          .forEach(key => data[key] && builder.addEntry(key, new DateEntry(data.data, data[key])))
         )
         .on('end', () => callback(builder.build()));
     })
@@ -56,7 +56,7 @@ export function getPortugalData(callback: Function) {
         .pipe(Csv())
         .on('data', data => {
           Object.values(KEY)
-          .forEach(key => data[key] && builder.addEntry(key, new Entry(data.data, data[key])))
+          .forEach(key => data[key] && builder.addEntry(key, new DateEntry(data.data, data[key])))
         })
         .on('end', () => callback(builder.build()));
     })

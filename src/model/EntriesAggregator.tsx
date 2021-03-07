@@ -1,4 +1,5 @@
 import { mergeEntryValuesBySum } from '../utils/EntriesOps';
+import DateEntry from './DateEntry';
 import Entry from './Entry';
 
 const CONFIRMED_KEYS = {
@@ -93,42 +94,42 @@ export const KEY = {
   TOWN_CONFIRMED_14: 'confirmados_14',
 }
 
-export default class EntriesAggregator {
+export default class EntriesAggregator<X, E extends Entry<X>> {
   _name: string;
   constructor(name: string) {
     this._name = name;
   }
-  getAll(key: string): Entry[] {
+  getAll(key: string): E[] {
     console.warn(`The EntriesAggregator '${this._name}' was not properly instantiated and is trying to call getAll!`);
     return [];
   }
-  getLast(key: string): Entry {
+  getLast(key: string): any {
     console.warn(`The EntriesAggregator '${this._name}' was not properly instantiated and is trying to call getLastEntry!`);
-    return new Entry('', 0);
+    return null;
   }
 }
 
-class EntriesAggregatorImpl extends EntriesAggregator {
-  _aggregationMap: {[key: string]: Entry[]};
+class EntriesAggregatorImpl<X, E extends Entry<X>> extends EntriesAggregator<X, E> {
+  _aggregationMap: {[key: string]: E[]};
 
-  constructor(builder: EntriesAggregatorBuilder) {
+  constructor(builder: EntriesAggregatorBuilder<X, E>) {
     super(builder.name);
     this._aggregationMap = builder._aggregator;
   }
 
-  getAll(key: string): Entry[] {
+  getAll(key: string): E[] {
     return this._aggregationMap[key] || [];
   }
 
-  getLast(key: string): Entry {
+  getLast(key: string): E {
     const entries = this._aggregationMap[key];
     return entries[entries.length - 1];
   }
 }
 
-export class EntriesAggregatorBuilder {
+export class EntriesAggregatorBuilder<X, E extends Entry<X>> {
   _name: string;
-  _aggregator: {[key: string]: Entry[]};
+  _aggregator: {[key: string]: E[]};
 
   constructor(name: string) {
     this._name = name;
@@ -139,29 +140,29 @@ export class EntriesAggregatorBuilder {
     return this._name;
   }
 
-  addEntry(key: string, entry: Entry) {
+  addEntry(key: string, entry: E) {
     const current = this._aggregator[key] || [];
     this._aggregator[key] = [...current, entry];
     return this;
   }
 
-  addEntries(key: string, entries: Entry[]) {
+  addEntries(key: string, entries: E[]) {
     const current = this._aggregator[key] || [];
     this._aggregator[key] = [...current, ...entries];
     return this;
   }
 
-  build(): EntriesAggregatorImpl {
+  build(): EntriesAggregatorImpl<X, E> {
     return new EntriesAggregatorImpl(this);
   }
 }
 
-export class PtDataEntriesAggregatorBuilder extends EntriesAggregatorBuilder {
+export class PtDataEntriesAggregatorBuilder extends EntriesAggregatorBuilder<string, DateEntry> {
   addByAgeGroup(extraKeys: Object) {
     Object.entries(extraKeys).forEach(([, v]) => {
-      const entriesM: Entry[] = this._aggregator[`${v}_m`];
-      const entriesF: Entry[] = this._aggregator[`${v}_f`];
-      this.addEntries(v, mergeEntryValuesBySum(entriesM, entriesF));
+      const entriesM: DateEntry[] = this._aggregator[`${v}_m`];
+      const entriesF: DateEntry[] = this._aggregator[`${v}_f`];
+      this.addEntries(v, mergeEntryValuesBySum(entriesM, entriesF) as DateEntry[]);
     });
   }
 
@@ -170,7 +171,7 @@ export class PtDataEntriesAggregatorBuilder extends EntriesAggregatorBuilder {
     this.addByAgeGroup(CONFIRMED_EXTRA_KEYS);
   }
 
-  build(): EntriesAggregatorImpl {
+  build(): EntriesAggregatorImpl<string, DateEntry> {
     this.preProcess();
     return new EntriesAggregatorImpl(this);
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { Typography, Card, CardContent } from '@material-ui/core';
-import Entry from "../../model/Entry";
+import DateEntry from "../../model/DateEntry";
 
 const InfoCard = ({title, entry}) => {
 
@@ -24,7 +24,7 @@ const InfoCard = ({title, entry}) => {
 
 InfoCard.propTypes = {
   title: PropTypes.string.isRequired,
-  entry: PropTypes.instanceOf(Entry).isRequired,
+  entry: PropTypes.instanceOf(DateEntry).isRequired,
 };
 
 export default InfoCard;

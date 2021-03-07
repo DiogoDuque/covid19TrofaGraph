@@ -1,11 +1,19 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import Entry from "../model/Entry";
-import { getAdaptativePointRadius } from './EntriesOps';
+
+function getAdaptativePointRadius<X>(entries: Entry<X>[]): number {
+  const width = window.screen.availWidth;
+  const count = entries.length;
+  const densityRatio = count/width;
+  const densityValue = densityRatio*12;
+  const retVal = Math.max(4-densityValue, 1);
+  return retVal;
+}
 
 /** CHART ARGUMENTS */
 
-export const getChartData = (entries: Entry[], label: string, chosenTheme: object) => ({
+export const getChartData = <X extends unknown>(entries: Entry<X>[], label: string, chosenTheme: object) => ({
   datasets: [{
     label,
     categoryPercentage: 1.0,
@@ -17,13 +25,13 @@ export const getChartData = (entries: Entry[], label: string, chosenTheme: objec
     pointBorderWidth: 1,
     pointHoverRadius: 5,
     pointRadius: getAdaptativePointRadius(entries),
-    data: entries.map(entry => entry.count),
+    data: entries.map(entry => entry.y),
     ...chosenTheme,
   }],
-  labels: entries.map(entry => entry.dateStr),
+  labels: entries.map(entry => entry.x),
 });
 
-export const getMultipleChartData = (entriesArray: Entry[][], labels: string[], chosenThemes: object[]) => ({
+export const getMultipleChartData = <X extends unknown>(entriesArray: Entry<X>[][], labels: string[], chosenThemes: object[]) => ({
   datasets: Array.from(Array(entriesArray.length).keys()).map(i => ({
     label: labels[i],
     categoryPercentage: 1.0,
@@ -35,10 +43,10 @@ export const getMultipleChartData = (entriesArray: Entry[][], labels: string[], 
     pointBorderWidth: 1,
     pointHoverRadius: 5,
     pointRadius: getAdaptativePointRadius(entriesArray[i]),
-    data: entriesArray[i].map(entry => entry.count),
+    data: entriesArray[i].map(entry => entry.y),
     ...chosenThemes[i],
   })),
-  labels: entriesArray[0].map(entry => entry.dateStr),
+  labels: entriesArray[0].map(entry => entry.x),
 });
 
 export const getChartOptions = (beginAtZero=false, suggestedMin=null, suggestedMax=null) => ({
