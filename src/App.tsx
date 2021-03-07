@@ -14,6 +14,7 @@ import TrofaCharts from './component/app/TrofaCharts';
 import EntriesStore from './store/EntriesStore';
 import GeneralStore from './store/GeneralStore';
 import DateEntry from './model/DateEntry';
+import AgeCharts from './component/app/AgeCharts';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -57,6 +58,8 @@ function getTabContent(tab: number) {
           <NewCasesCharts />
           <br />
           <RegionCharts />
+          <br />
+          <AgeCharts />
         </div>
       );
     case 1:

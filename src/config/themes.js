@@ -26,6 +26,7 @@ export const themeYellow = getThemeFromRGB(192, 192, 75);
 export const themeYellowNoBG = getThemeFromRGB(192, 192, 75, false);
 export const themeYellowLight = getThemeFromRGB(217, 217, 128);
 export const themeYellowDark = getThemeFromRGB(140, 140, 83);
+export const themeYellowDarkNoBG = getThemeFromRGB(140, 140, 83, false);
 
 
 // BLUE
@@ -40,7 +41,11 @@ export const themeGreenNoBG = getThemeFromRGB(0, 255, 80, false);
 
 // RED
 export const themeRed = getThemeFromRGB(255, 80, 30);
+export const themeRedNoBG = getThemeFromRGB(255, 80, 30, false);
 
+// TEA GREEN
+export const themeTeaGreen = getThemeFromRGB(199, 249, 204);
+export const themeTeaGreenNoBG = getThemeFromRGB(199, 249, 204, false);
 
 // OTHERS
 export const themeGreyTransparent = getThemeFromRGB(200, 200, 200, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});
