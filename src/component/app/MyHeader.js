@@ -27,9 +27,12 @@ const MyHeader = () => {
           onChange={(_e, v) => GeneralStore.update(s => {s.tab = v})}
           indicatorColor="primary"
           textColor="primary"
-          aria-label="full width tabs example"
+          aria-label="my tabs"
+          variant="scrollable"
+          scrollButtons="auto"
         >
-          <Tab label="Gráficos" />
+          <Tab label="Gráficos Gerais" />
+          <Tab label="Gráficos Detalhados" />
           <Tab label="Infos" />
         </Tabs>
         </Toolbar>

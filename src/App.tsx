@@ -36,13 +36,12 @@ const useStyles = makeStyles(() => ({
     margin: '0 auto',
   },
   appBar: {
-    maxWidth: 500,
     marginBottom: 20,
     backgroundColor: '#e0e0e0',
   },
   formControl: {
     margin: 10,
-    // minWidth: 120,
+    minWidth: 80,
   },
 }));
 
@@ -56,13 +55,17 @@ function getTabContent(tab: number) {
           <TrofaCharts />
           <br />
           <NewCasesCharts />
-          <br />
+        </div>
+      );
+    case 1:
+      return (
+        <div>
           <RegionCharts />
           <br />
           <AgeCharts />
         </div>
       );
-    case 1:
+    case 2:
       return <SummaryCards />;
     default:
       return (<p>Bug? ¯\_(ツ)_/¯</p>);
@@ -75,12 +78,16 @@ const App: () => JSX.Element = (): JSX.Element => {
   GeneralStore.update(s => {s.styles = styles});
 
   const [isFetching, setIsFetching]: [boolean, Function] = useState(true);
+  const [renderTime, setRenderTime]: [number, Function] = useState(0);
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
   const trofaEntries = EntriesStore.useState(s => s.trofaEntries);
   let lastTownUpdate: string = "";
   let lastPtUpdate: string = "";
   const tab: number = GeneralStore.useState(s => s.tab);
   let tabContent = getTabContent(tab);
+
+  const isPtDataReady = ptEntries.getAll(KEY.CONFIRMED_PT).length > 0;
+  const isTrofaDataReady = trofaEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0;
 
 
   // ========== LOGIC ==========
@@ -92,9 +99,10 @@ const App: () => JSX.Element = (): JSX.Element => {
   if (!isFetching) {
     lastTownUpdate = trofaEntries.getLast(KEY.TOWN_INCIDENCE_14).x;
     lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).x;
+    if(!renderTime) setRenderTime(performance.now());
   }
 
-  if (isFetching && trofaEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0 && ptEntries.getAll(KEY.CONFIRMED_PT).length > 0)
+  if (isFetching && isTrofaDataReady && isPtDataReady)
     setIsFetching(false);
 
 
@@ -106,7 +114,7 @@ const App: () => JSX.Element = (): JSX.Element => {
         : <div>
             <MyHeader />
             <TextCard>
-              A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}.
+              A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}. Esta página carregou em {renderTime}ms.
               </TextCard>
 
             <br />
