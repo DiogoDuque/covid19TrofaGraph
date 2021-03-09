@@ -3,8 +3,8 @@ import { chartGroupWrapper } from "../../utils/chartUtils";
 import { derivateEntryValues, convertDailyCountToDailyIncidency, mergeEntryValuesBySum } from '../../utils/EntriesOps';
 import MultiLineChart from "../chart/MultiLineChart";
 import {
-  themeYellowNoBG, themeCyanNoBG, themeMagentaNoBG, themeBlueNoBG, themeGreenNoBG, themeRedNoBG,
-  themeTeaGreenNoBG, themeYellowDarkNoBG
+  themeYellowNoBG, themeCyanNoBG, themeBlueNoBG, themeGreenNoBG, themeRedNoBG,
+  themeYellowDarkNoBG, themeMagentaDarkNoBG, themeMagentaLightNoBG
 } from "../../config/themes";
 import { KEY } from "../../model/EntriesAggregator";
 import {
@@ -59,6 +59,12 @@ const AgeCharts = () => {
   const deadDailyIncidency60_69 = convertDailyCountToDailyIncidency(dead60_69, POPULATION_60_69);
   const deadDailyIncidency70_plus = convertDailyCountToDailyIncidency(dead70_plus, POPULATION_70_PLUS);
 
+  const themes = [
+    themeMagentaLightNoBG, themeMagentaDarkNoBG, themeBlueNoBG, themeCyanNoBG,
+    themeGreenNoBG, themeYellowNoBG, themeYellowDarkNoBG, themeRedNoBG,
+  ];
+
+
   return chartGroupWrapper('Evolução por idade', styles,
 
   // #### CASOS NOVOS POR IDADE ####
@@ -69,10 +75,7 @@ const AgeCharts = () => {
       ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+']
       .map(a => `Casos novos nos ${a} anos`)
     }
-    themes={[
-      themeYellowNoBG, themeMagentaNoBG, themeCyanNoBG, themeBlueNoBG,
-      themeGreenNoBG, themeRedNoBG, themeTeaGreenNoBG, themeYellowDarkNoBG
-    ]}
+    themes={themes}
   />,
 
   // #### INCIDENCIA DE CASOS NOVOS POR IDADE ####
@@ -85,10 +88,7 @@ const AgeCharts = () => {
       ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+']
       .map(a => `Incidência nos ${a} anos (p/ 100k pax na faixa)`)
     }
-    themes={[
-      themeYellowNoBG, themeMagentaNoBG, themeCyanNoBG, themeBlueNoBG,
-      themeGreenNoBG, themeRedNoBG, themeTeaGreenNoBG, themeYellowDarkNoBG
-    ]}
+    themes={themes}
   />,
 
   // #### CASOS NOVOS POR IDADE ####
@@ -99,10 +99,7 @@ const AgeCharts = () => {
       ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+']
       .map(a => `Mortes nos ${a} anos`)
     }
-    themes={[
-      themeYellowNoBG, themeMagentaNoBG, themeCyanNoBG, themeBlueNoBG,
-      themeGreenNoBG, themeRedNoBG, themeTeaGreenNoBG, themeYellowDarkNoBG
-    ]}
+    themes={themes}
   />,
 
   // #### INCIDENCIA DE CASOS NOVOS POR IDADE ####
@@ -115,10 +112,7 @@ const AgeCharts = () => {
       ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+']
       .map(a => `Incidência de mortes nos ${a} anos (p/ 100k pax na faixa)`)
     }
-    themes={[
-      themeYellowNoBG, themeMagentaNoBG, themeCyanNoBG, themeBlueNoBG,
-      themeGreenNoBG, themeRedNoBG, themeTeaGreenNoBG, themeYellowDarkNoBG
-    ]}
+    themes={themes}
   />,
   );
 }
