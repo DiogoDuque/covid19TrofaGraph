@@ -6,7 +6,6 @@ The [dssg-pt/covid19pt-data](https://github.com/dssg-pt/covid19pt-data) repo is 
 
 [![Node.js CI](https://github.com/DiogoDuque/covid19TrofaGraph/actions/workflows/node.js.yml/badge.svg)](https://github.com/DiogoDuque/covid19TrofaGraph/actions/workflows/node.js.yml)
 
----------  
 If you are looking for the dashboard with all the charts, go [here](https://diogoduque.github.io/covid19TrofaGraph/).
 
 ## To run it locally
