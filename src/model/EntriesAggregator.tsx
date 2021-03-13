@@ -1,4 +1,5 @@
-import { mergeEntryValuesBySum } from '../utils/EntriesOps';
+import { POPULATION_PT } from '../config/demographicValues';
+import { convertDailyCountToDailyIncidency, mergeEntryValuesBySum } from '../utils/EntriesOps';
 import DateEntry from './DateEntry';
 import Entry from './Entry';
 
@@ -88,6 +89,7 @@ export const KEY = {
   // data.csv extra
   ...CONFIRMED_EXTRA_KEYS,
   ...DEAD_EXTRA_KEYS,
+  INCIDENCE_PT: 'incidencia_pt',
 
   // data_concelhos_new.csv
   TOWN_INCIDENCE_14: 'incidencia',
@@ -169,6 +171,11 @@ export class PtDataEntriesAggregatorBuilder extends EntriesAggregatorBuilder<str
   preProcess() {
     this.addByAgeGroup(DEAD_EXTRA_KEYS);
     this.addByAgeGroup(CONFIRMED_EXTRA_KEYS);
+    
+    this.addEntries(
+      KEY.INCIDENCE_PT,
+      convertDailyCountToDailyIncidency(this._aggregator[KEY.NEWCASES_PT], POPULATION_PT) as DateEntry[]
+    );
   }
 
   build(): EntriesAggregatorImpl<string, DateEntry> {
