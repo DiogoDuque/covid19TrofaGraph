@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/covid19TrofaGraph/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/covid19TrofaGraph/static/js/main.ff269fa7.chunk.js",
-    "main.js.map": "/covid19TrofaGraph/static/js/main.ff269fa7.chunk.js.map",
+    "main.js": "/covid19TrofaGraph/static/js/main.c20e28a4.chunk.js",
+    "main.js.map": "/covid19TrofaGraph/static/js/main.c20e28a4.chunk.js.map",
     "runtime-main.js": "/covid19TrofaGraph/static/js/runtime-main.f337a775.js",
     "runtime-main.js.map": "/covid19TrofaGraph/static/js/runtime-main.f337a775.js.map",
     "static/js/2.6978e188.chunk.js": "/covid19TrofaGraph/static/js/2.6978e188.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.f337a775.js",
     "static/js/2.6978e188.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.ff269fa7.chunk.js"
+    "static/js/main.c20e28a4.chunk.js"
   ]
 }
