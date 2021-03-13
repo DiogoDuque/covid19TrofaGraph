@@ -17,12 +17,12 @@ const MyHeader = () => {
     return !isNaN(n) && Number.isInteger(parsedTimeValue) & parsedTimeValue > 0;
   };
 
-  const onTabChange = (_e, v) => GeneralStore.update(s => {s.tab = v});
+  const onTabChange = (_e, v) => GeneralStore.update(s => { s.tab = v });
 
   const closeTimeDialog = (newValue = undefined) => {
-    if(validateTimeValue(newValue)) {
+    if (validateTimeValue(newValue)) {
       setCustomTimeValue(newValue);
-      EntriesStore.update(s => {s.dateRange = parseInt(newValue)});
+      EntriesStore.update(s => { s.dateRange = parseInt(newValue) });
     } else {
       setCustomTimeValue();
     }
@@ -32,21 +32,20 @@ const MyHeader = () => {
   const onTimeChange = e => {
     const value = e.target.value;
     const innerText = e.nativeEvent.target.innerText;
-    if(innerText === 'Outro')
+    if (innerText === 'Outro')
       setTimeDialogOpen(true);
-    else  {
-      EntriesStore.update(s => {s.dateRange = value});
+    else {
+      EntriesStore.update(s => { s.dateRange = value });
       setCustomTimeValue();
     }
-      
+
   };
 
   const isTimeValueValid = validateTimeValue(customTimeValueTmp);
 
   return (
-    <div>
-      <AppBar position="sticky" className={styles.appBar}>
-        <Toolbar>
+    <AppBar position="sticky" className={styles.appBar}>
+      <Toolbar>
         <FormControl className={styles.formControl}>
           <InputLabel id="time-selector">Tempo</InputLabel>
           <Select
@@ -63,24 +62,23 @@ const MyHeader = () => {
           </Select>
         </FormControl>
         <Tabs
-            value={GeneralStore.useState(s => s.tab)}
-            onChange={onTabChange}
-            indicatorColor="primary"
-            textColor="primary"
-            aria-label="my tabs"
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab label="Gráficos Gerais" />
-            <Tab label="Gráficos Detalhados" />
-            <Tab label="Infos" />
-          </Tabs>
-          </Toolbar>
-      </AppBar>
+          value={GeneralStore.useState(s => s.tab)}
+          onChange={onTabChange}
+          indicatorColor="primary"
+          textColor="primary"
+          aria-label="my tabs"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab label="Gráficos Gerais" />
+          <Tab label="Gráficos Detalhados" />
+          <Tab label="Infos" />
+        </Tabs>
+      </Toolbar>
       <Dialog open={isTimeDialogOpen} onClose={closeTimeDialog} aria-labelledby="time-dialog-title">
         <DialogTitle id="form-dialog-title">Define um valor de tempo</DialogTitle>
         <DialogContent>
-        <TextField
+          <TextField
             error={!isTimeValueValid}
             autoFocus
             margin="dense"
@@ -94,13 +92,13 @@ const MyHeader = () => {
         <DialogActions>
           <Button onClick={() => closeTimeDialog(customTimeValue)} color="primary">
             Cancelar
-          </Button>
+              </Button>
           <Button onClick={() => closeTimeDialog(customTimeValueTmp)} color="primary" disabled={!isTimeValueValid}>
             Definir
-          </Button>
+              </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </AppBar>
   );
 };
 
