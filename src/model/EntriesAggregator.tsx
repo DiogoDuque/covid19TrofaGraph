@@ -94,6 +94,9 @@ export const KEY = {
   // data_concelhos_new.csv
   TOWN_INCIDENCE_14: 'incidencia',
   TOWN_CONFIRMED_14: 'confirmados_14',
+
+  //vacinas.csv
+  VACCINE_DOSE_2: 'doses2',
 }
 
 export default class EntriesAggregator<X, E extends Entry<X>> {

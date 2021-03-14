@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 import EntriesAggregator, { KEY } from './model/EntriesAggregator';
-import { getTownData, getPortugalData } from './utils/fetchData';
+import { getTownData, getPortugalData, getVaccineData } from './utils/fetchData';
 import TextCard from './component/card/TextCard';
 import MyHeader from './component/app/MyHeader';
 import MyFooter from './component/app/MyFooter';
@@ -94,6 +94,7 @@ const App: () => JSX.Element = (): JSX.Element => {
   useEffect(() => {
     getTownData('TROFA', (e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.trofaEntries = e}));
     getPortugalData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.portugalEntries = e}));
+    getVaccineData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.vaccineEntries = e}));
   }, []);
 
   if (!isFetching) {

@@ -51,3 +51,11 @@ export function getPortugalData(callback: Function) {
     callback
   );
 }
+
+export function getVaccineData(callback: Function) {
+  const filename = 'vacinas.csv';
+  getDataFromSource(
+    new EntriesAggregatorBuilder(filename),
+    callback
+  );
+}

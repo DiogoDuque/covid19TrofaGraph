@@ -6,11 +6,14 @@ import { themeMagenta, themeMagentaDark, themeMagentaLight } from "../../config/
 import { KEY } from "../../model/EntriesAggregator";
 import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
+import { POPULATION_PT } from "../../config/demographicValues";
 
 const GeneralCharts = () => {
   const styles = GeneralStore.useState(s => s.styles);
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
+  const vaccineEntries = EntriesStore.useState(s => s.vaccineEntries);
   const dateRange = EntriesStore.useState(s => s.dateRange);
+  const vaccine2Perc = vaccineEntries.getAll(KEY.VACCINE_DOSE_2).map(e => e.buildNewWith(e.x, parseFloat(Number(100 * e.y / POPULATION_PT).toFixed(2))));
 
   return chartGroupWrapper('Casos ativos', styles,
     <DefaultLineChart
@@ -25,6 +28,13 @@ const GeneralCharts = () => {
       dateRange={dateRange}
       labels={["Internados em Enfermaria em Portugal", "Internados em UCI em Portugal"]}
       themes={[themeMagentaLight, themeMagentaDark]}
+      zeroBased={true}
+    />,
+    <DefaultLineChart
+      data={vaccine2Perc}
+      dateRange={dateRange}
+      label="% de vacinados com 2 doses"
+      theme={themeMagenta}
       zeroBased={true}
     />
   );
