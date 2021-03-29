@@ -24,4 +24,5 @@ npm run deploy
 
 
 ## Future ideas
+* Allow other cities besides Trofa
 * ???
