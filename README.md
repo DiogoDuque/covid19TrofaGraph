@@ -25,4 +25,5 @@ npm run deploy
 
 ## Future ideas
 * Allow other cities besides Trofa
+* Allow time ranges with an endDate that is not today
 * ???
