@@ -96,6 +96,7 @@ export const KEY = {
   TOWN_CONFIRMED_14: 'confirmados_14',
 
   //vacinas.csv
+  VACCINE_DOSE_1: 'doses1',
   VACCINE_DOSE_2: 'doses2',
 }
 
