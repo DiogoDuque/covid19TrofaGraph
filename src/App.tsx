@@ -10,7 +10,7 @@ import SummaryCards from './component/app/SummaryCards';
 import GeneralCharts from './component/app/GeneralCharts';
 import NewCasesCharts from './component/app/PortugalCharts';
 import RegionCharts from './component/app/RegionCharts';
-import TrofaCharts from './component/app/TrofaCharts';
+import TownCharts from './component/app/TownCharts';
 import EntriesStore from './store/EntriesStore';
 import GeneralStore from './store/GeneralStore';
 import DateEntry from './model/DateEntry';
@@ -52,7 +52,7 @@ function getTabContent(tab: number) {
         <div>
           <GeneralCharts />
           <br />
-          <TrofaCharts />
+          <TownCharts />
           <br />
           <NewCasesCharts />
         </div>
@@ -75,35 +75,41 @@ function getTabContent(tab: number) {
 const App: () => JSX.Element = (): JSX.Element => {
   // ========== DEFINITIONS ==========
   const styles = useStyles();
-  GeneralStore.update(s => {s.styles = styles});
+  GeneralStore.update(s => { s.styles = styles });
 
   const [isFetching, setIsFetching]: [boolean, Function] = useState(true);
   const [renderTime, setRenderTime]: [number, Function] = useState(0);
+  const currTown: string = GeneralStore.useState(s => s.currentTown);
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
-  const trofaEntries = EntriesStore.useState(s => s.trofaEntries);
+  const townEntries = EntriesStore.useState(s => s.townEntries[currTown]);
   let lastTownUpdate: string = "";
   let lastPtUpdate: string = "";
   const tab: number = GeneralStore.useState(s => s.tab);
   let tabContent = getTabContent(tab);
+  const town = currTown[0] + currTown.slice(1).toLowerCase();
 
   const isPtDataReady = ptEntries.getAll(KEY.CONFIRMED_PT).length > 0;
-  const isTrofaDataReady = trofaEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0;
-
+  const isTownDataReady = townEntries && townEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0;
 
   // ========== LOGIC ==========
   useEffect(() => {
-    getTownData('TROFA', (e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.trofaEntries = e}));
-    getPortugalData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.portugalEntries = e}));
-    getVaccineData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => {s.vaccineEntries = e}));
+    getPortugalData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => { s.portugalEntries = e }));
+    getVaccineData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => { s.vaccineEntries = e }));
   }, []);
-
-  if (!isFetching) {
-    lastTownUpdate = trofaEntries.getLast(KEY.TOWN_INCIDENCE_14).x;
-    lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).x;
-    if(!renderTime) setRenderTime(performance.now());
+  if (!isTownDataReady) {
+    getTownData(
+      currTown,
+      (e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => { s.townEntries[currTown] = e })
+    );
   }
 
-  if (isFetching && isTrofaDataReady && isPtDataReady)
+  if (!isFetching) {
+    lastTownUpdate = townEntries.getLast(KEY.TOWN_INCIDENCE_14).x;
+    lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).x;
+    if (!renderTime) setRenderTime(performance.now());
+  }
+
+  if (isFetching && isTownDataReady && isPtDataReady)
     setIsFetching(false);
 
 
@@ -113,17 +119,17 @@ const App: () => JSX.Element = (): JSX.Element => {
       { isFetching
         ? <CircularProgress className={styles.progress} />
         : <div>
-            <MyHeader />
-            <TextCard>
-              A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, Trofa => ${lastTownUpdate}`}. Esta página carregou em {renderTime}ms.
+          <MyHeader />
+          <TextCard>
+            A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, ${town} => ${lastTownUpdate}`}. Esta página carregou em {renderTime}ms.
               </TextCard>
 
-            <br />
-            {tabContent}
-            <br />
+          <br />
+          {tabContent}
+          <br />
 
-            <MyFooter />
-          </div>
+          <MyFooter />
+        </div>
       }
     </div>
   );

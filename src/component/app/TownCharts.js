@@ -7,28 +7,30 @@ import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
 import { convertDailyIncidencyToBiweeklyIncidency } from "../../utils/EntriesOps";
 
-const TrofaCharts = () => {
+const TownCharts = () => {
   const styles = GeneralStore.useState(s => s.styles);
-  const trofaEntries = EntriesStore.useState(s => s.trofaEntries);
+  const currTown = GeneralStore.useState(s => s.currentTown);
+  const townEntries = EntriesStore.useState(s => s.townEntries[currTown]);
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
   const dateRange = EntriesStore.useState(s => s.dateRange);
 
-  const trofaEntriesIncidence14 = trofaEntries.getAll(KEY.TOWN_INCIDENCE_14);
+  const townEntriesIncidence14 = townEntries.getAll(KEY.TOWN_INCIDENCE_14);
   const ptEntriesIncidence14 = convertDailyIncidencyToBiweeklyIncidency(
     ptEntries.getAll(KEY.INCIDENCE_PT),
-    trofaEntriesIncidence14.map(e => e.x)
+    townEntriesIncidence14.map(e => e.x)
   );
+  const town = currTown[0] + currTown.slice(1).toLowerCase();
 
-  return chartGroupWrapper('Evolução na Trofa', styles,
+  return chartGroupWrapper(`Evolução - ${town}`, styles,
   
     <MultiLineChart
       dataArray={[
-        trofaEntriesIncidence14,
+        townEntriesIncidence14,
         ptEntriesIncidence14,
       ]}
       dateRange={dateRange}
       labels={[
-        'Incidência na Trofa (a 14 dias p/ 100k hab.)',
+        `Incidência - ${town} (a 14 dias p/ 100k hab.)`,
         'Incidência em Portugal (a 14 dias p/ 100k hab.)',
       ]}
       themes={[themeYellow, themeBlueTransparent]}
@@ -36,4 +38,4 @@ const TrofaCharts = () => {
   );
 }
 
-export default TrofaCharts;
+export default TownCharts;
