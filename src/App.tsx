@@ -106,7 +106,7 @@ const App: () => JSX.Element = (): JSX.Element => {
   if (!isFetching) {
     lastTownUpdate = townEntries.getLast(KEY.TOWN_INCIDENCE_14).x;
     lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).x;
-    if (!renderTime) setRenderTime(performance.now());
+    if (!renderTime) setRenderTime(Math.round(performance.now()));
   }
 
   if (isFetching && isTownDataReady && isPtDataReady)
