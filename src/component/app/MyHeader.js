@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core';
 import EntriesStore from '../../store/EntriesStore';
 import GeneralStore from '../../store/GeneralStore';
+import DateRange from '../../model/DateRange';
 
 const MyHeader = () => {
   const [isTimeDialogOpen, setTimeDialogOpen] = useState(false);
@@ -22,7 +23,7 @@ const MyHeader = () => {
   const closeTimeDialog = (newValue = undefined) => {
     if (validateTimeValue(newValue)) {
       setCustomTimeValue(newValue);
-      EntriesStore.update(s => { s.dateRange = parseInt(newValue) });
+      EntriesStore.update(s => { s.dateRange = DateRange.fromRelativeRange(parseInt(newValue)) });
     } else {
       setCustomTimeValue();
     }
@@ -35,7 +36,7 @@ const MyHeader = () => {
     if (innerText === 'Outro')
       setTimeDialogOpen(true);
     else {
-      EntriesStore.update(s => { s.dateRange = value });
+      EntriesStore.update(s => { s.dateRange = DateRange.fromRelativeRange(value) });
       setCustomTimeValue();
     }
 
@@ -51,7 +52,7 @@ const MyHeader = () => {
           <Select
             labelId="time-selector"
             id="time-select"
-            value={EntriesStore.useState(s => s.dateRange)}
+            value={EntriesStore.useState(s => s.dateRange).range}
             onChange={onTimeChange}
           >
             <MenuItem value={30}>30 dias</MenuItem>

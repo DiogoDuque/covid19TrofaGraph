@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
+import DateRange from '../../model/DateRange';
 import DateEntry from '../../model/DateEntry';
 import { getChartOptions, getChartData } from '../../utils/chartUtils';
 import { getEntriesSince } from '../../utils/EntriesOps';
@@ -27,7 +28,7 @@ const DefaultLineChart = ({ data, dateRange, label, theme, zeroBased }) => {
 
 DefaultLineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.instanceOf(DateEntry)).isRequired,
-  dateRange: PropTypes.number.isRequired,
+  dateRange: PropTypes.instanceOf(DateRange).isRequired,
   label: PropTypes.string.isRequired,
   theme: PropTypes.object.isRequired,
   zeroBased: PropTypes.bool,

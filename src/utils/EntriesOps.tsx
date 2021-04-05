@@ -1,18 +1,13 @@
 import Entry from "../model/Entry";
 import DateEntry from "../model/DateEntry";
-
-function getDateLimitFromRange(dateRange: number): Date {
-  const dateLimit = new Date();
-  dateLimit.setDate(dateLimit.getDate() - dateRange);
-  return dateLimit;
-}
+import DateRange from "../model/DateRange";
 
 export function getEntriesLineGenerator<X>(entries: Entry<X>[]): (v: number) => Entry<X>[] {
   return v => entries.map(e => e.buildNewWith(e.x, v));
 }
 
-export function getEntriesSince(dateRange: number, entries: DateEntry[]): DateEntry[] {
-  const dateLimit = getDateLimitFromRange(dateRange);
+export function getEntriesSince(dateRange: DateRange, entries: DateEntry[]): DateEntry[] {
+  const dateLimit = dateRange.startDate;
   return entries.filter(e => e.date >= dateLimit);
 }
 
