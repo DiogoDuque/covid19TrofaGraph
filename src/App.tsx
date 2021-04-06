@@ -89,27 +89,25 @@ const App: () => JSX.Element = (): JSX.Element => {
   const town = currTown[0] + currTown.slice(1).toLowerCase();
 
   const isPtDataReady = ptEntries.getAll(KEY.CONFIRMED_PT).length > 0;
-  const isTownDataReady = townEntries && townEntries.getAll(KEY.TOWN_INCIDENCE_14).length > 0;
 
   // ========== LOGIC ==========
   useEffect(() => {
     getPortugalData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => { s.portugalEntries = e }));
     getVaccineData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => { s.vaccineEntries = e }));
-  }, []);
-  if (!isTownDataReady) {
     getTownData(
       currTown,
-      (e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => { s.townEntries[currTown] = e })
+      (e: { [key: string]: EntriesAggregator<string, DateEntry> }) => EntriesStore.update(s => { s.townEntries = e })
     );
-  }
+    // eslint-disable-next-line
+  }, []);
 
   if (!isFetching) {
-    lastTownUpdate = townEntries.getLast(KEY.TOWN_INCIDENCE_14).x;
+    lastTownUpdate = townEntries?.getLast(KEY.TOWN_INCIDENCE_14).x;
     lastPtUpdate = ptEntries.getLast(KEY.CONFIRMED_PT).x;
     if (!renderTime) setRenderTime(Math.round(performance.now()));
   }
 
-  if (isFetching && isTownDataReady && isPtDataReady)
+  if (isFetching && isPtDataReady)
     setIsFetching(false);
 
 
@@ -121,7 +119,7 @@ const App: () => JSX.Element = (): JSX.Element => {
         : <div>
           <MyHeader />
           <TextCard>
-            A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, ${town} => ${lastTownUpdate}`}. Esta página carregou em {renderTime}ms.
+            A última atualização destes dados ocorreu nas seguintes datas: {`Portugal/Norte => ${lastPtUpdate}, ${town} => ${lastTownUpdate || ''}`}. Esta página carregou em {renderTime}ms.
               </TextCard>
 
           <br />

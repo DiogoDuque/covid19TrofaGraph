@@ -1,9 +1,9 @@
 import { Store } from "pullstate";
+import DateEntry from "../model/DateEntry";
 import DateRange from "../model/DateRange";
 import EntriesAggregator from "../model/EntriesAggregator";
-import Entry from "../model/Entry";
 
-const EMPTY_TOWN_ENTRIES: {[key: string]: EntriesAggregator<unknown, Entry<unknown>>} = {};
+const EMPTY_TOWN_ENTRIES: {[key: string]: EntriesAggregator<string, DateEntry>} = {};
 
 const EntriesStore = new Store({
   portugalEntries: new EntriesAggregator('DUMMY-PT'),

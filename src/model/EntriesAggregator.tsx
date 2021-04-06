@@ -94,6 +94,7 @@ export const KEY = {
   // data_concelhos_new.csv
   TOWN_INCIDENCE_14: 'incidencia',
   TOWN_CONFIRMED_14: 'confirmados_14',
+  TOWN: 'concelho',
 
   //vacinas.csv
   VACCINE_DOSE_1: 'doses1',
