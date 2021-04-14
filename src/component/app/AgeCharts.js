@@ -49,16 +49,7 @@ const AgeCharts = () => {
   const dead70_plus = mergeEntryValuesBySum(
     derivateEntryValues(ptEntries.getAll(KEY.DEAD_70_79)),
     derivateEntryValues(ptEntries.getAll(KEY.DEAD_80_PLUS)));
-  
-  const deadDailyIncidency0_9 = convertDailyCountToDailyIncidency(dead0_9, POPULATION_0_9);
-  const deadDailyIncidency10_19 = convertDailyCountToDailyIncidency(dead10_19, POPULATION_10_19);
-  const deadDailyIncidency20_29 = convertDailyCountToDailyIncidency(dead20_29, POPULATION_20_29);
-  const deadDailyIncidency30_39 = convertDailyCountToDailyIncidency(dead30_39, POPULATION_30_39);
-  const deadDailyIncidency40_49 = convertDailyCountToDailyIncidency(dead40_49, POPULATION_40_49);
-  const deadDailyIncidency50_59 = convertDailyCountToDailyIncidency(dead50_59, POPULATION_50_59);
-  const deadDailyIncidency60_69 = convertDailyCountToDailyIncidency(dead60_69, POPULATION_60_69);
-  const deadDailyIncidency70_plus = convertDailyCountToDailyIncidency(dead70_plus, POPULATION_70_PLUS);
-
+ 
   const themes = [
     themeMagentaLightNoBG, themeMagentaDarkNoBG, themeBlueNoBG, themeCyanNoBG,
     themeGreenNoBG, themeYellowNoBG, themeYellowDarkNoBG, themeRedNoBG,
@@ -98,19 +89,6 @@ const AgeCharts = () => {
     labels={
       ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+']
       .map(a => `Mortes nos ${a} anos`)
-    }
-    themes={themes}
-  />,
-
-  // #### INCIDENCIA DE CASOS NOVOS POR IDADE ####
-  <MultiLineChart
-    dataArray={[
-      deadDailyIncidency0_9, deadDailyIncidency10_19, deadDailyIncidency20_29, deadDailyIncidency30_39,
-      deadDailyIncidency40_49, deadDailyIncidency50_59, deadDailyIncidency60_69, deadDailyIncidency70_plus]}
-    dateRange={dateRange}
-    labels={
-      ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+']
-      .map(a => `Incidência de mortes nos ${a} anos (p/ 100k pax na faixa)`)
     }
     themes={themes}
   />,
