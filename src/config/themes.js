@@ -36,7 +36,10 @@ export const themeYellowDarkNoBG = getThemeFromRGB(140, 140, 83, false);
 export const themeBlue = getThemeFromRGB(0, 80, 255);
 export const themeBlueNoBG = getThemeFromRGB(0, 80, 255, false);
 export const themeBlueTransparent = getThemeFromRGB(0, 80, 255, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});
+export const themeBlueLight = getThemeFromRGB(50, 100, 255);
+export const themeBlueLightNoBG = getThemeFromRGB(50, 100, 255, false);
 export const themeBlueDark = getThemeFromRGB(0, 50, 180);
+export const themeBlueDarkNoBG = getThemeFromRGB(0, 50, 180, false);
 
 
 // GREEN
@@ -52,6 +55,6 @@ export const themeRedNoBG = getThemeFromRGB(255, 80, 30, false);
 export const themeGreyTransparent = getThemeFromRGB(200, 200, 200, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});
 export const themeDark = getThemeFromRGB(20, 20, 20);
 
-export const severityTheme1 = getThemeFromRGB(255, 189, 0, false);
-export const severityTheme2 = getThemeFromRGB(255, 84, 0, false);
-export const severityTheme3 = getThemeFromRGB(158, 0, 89, false);
+export const severityTheme1 = getThemeFromRGB(255, 189, 0, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});
+export const severityTheme2 = getThemeFromRGB(255, 84, 0, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});
+export const severityTheme3 = getThemeFromRGB(158, 0, 89, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});

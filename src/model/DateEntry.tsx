@@ -13,7 +13,7 @@ export default class DateEntry extends Entry<string> {
   _date: Date;
 
   constructor(date: string, count: string|number) {
-    super(date, typeof count === 'number' ? count : parseInt(count));
+    super(date, typeof count === 'number' ? count : parseFloat(count));
     if(isNaN(this._y))
       this._y = 0;
 

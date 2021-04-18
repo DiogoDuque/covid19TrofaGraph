@@ -55,15 +55,6 @@ export function convertDailyIncidencyToBiweeklyIncidency<X>(entries: Entry<X>[],
   .filter(e => xWhitelist.includes(e.x));
 }
 
-export function convertDailyIncidencyToTransmissibility<X>(entries: Entry<X>[]): Entry<X>[] {
-  return entries
-    .map((entry, index) => {
-      if(index < 11)
-        return entry.buildNewWith(entry.x, 0);
-      return entry.buildNewWith(entry.x, (entry.y - entries[index-7].y)/(entries[index-4].y-entries[index-11].y));
-    });
-}
-
 function mergeEntryValues<E extends Entry<string>>(entries1: E[], entries2: E[], mergeOp: (e1: E, e2: E) => E) {
   if((entries1.length !== entries2.length) || (entries1[0].x !== entries2[0].x)) {
     console.error(`The two Entry[] don't seem mergeable!\n${entries1}\n${entries2}`);

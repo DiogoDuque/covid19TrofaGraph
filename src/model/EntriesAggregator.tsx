@@ -1,5 +1,5 @@
 import { POPULATION_PT } from '../config/demographicValues';
-import { convertDailyCountToDailyIncidency, convertDailyIncidencyToTransmissibility, mergeEntryValuesBySum } from '../utils/EntriesOps';
+import { convertDailyCountToDailyIncidency, mergeEntryValuesBySum } from '../utils/EntriesOps';
 import DateEntry from './DateEntry';
 import Entry from './Entry';
 
@@ -90,7 +90,8 @@ export const KEY = {
   ...CONFIRMED_EXTRA_KEYS,
   ...DEAD_EXTRA_KEYS,
   INCIDENCE_PT: 'incidencia_pt',
-  TRANSMISSIBILITY_PT: 'rt_pt',
+  TRANSMISSIBILITY_PT: 'rt_nacional',
+  TRANSMISSIBILITY_PT_CONTINENT: 'rt_continente',
 
   // data_concelhos_new.csv
   TOWN_INCIDENCE_14: 'incidencia',
@@ -180,9 +181,6 @@ export class PtDataEntriesAggregatorBuilder extends EntriesAggregatorBuilder<str
     
     const incidence: DateEntry[] = convertDailyCountToDailyIncidency(this._aggregator[KEY.NEWCASES_PT], POPULATION_PT) as DateEntry[];
     this.addEntries(KEY.INCIDENCE_PT, incidence);
-
-    const rt: DateEntry[] = convertDailyIncidencyToTransmissibility(this._aggregator[KEY.CONFIRMED_PT]) as DateEntry[];
-    this.addEntries( KEY.TRANSMISSIBILITY_PT, rt);
   }
 
   build(): EntriesAggregatorImpl<string, DateEntry> {
