@@ -36,6 +36,7 @@ export const themeYellowDarkNoBG = getThemeFromRGB(140, 140, 83, false);
 export const themeBlue = getThemeFromRGB(0, 80, 255);
 export const themeBlueNoBG = getThemeFromRGB(0, 80, 255, false);
 export const themeBlueTransparent = getThemeFromRGB(0, 80, 255, false, {pointRadius:0, pointHitRadius:0, borderDash:[8]});
+export const themeBlueDark = getThemeFromRGB(0, 50, 180);
 
 
 // GREEN

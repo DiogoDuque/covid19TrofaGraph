@@ -25,4 +25,5 @@ npm run deploy
 
 ## Future ideas
 * Allow time ranges with an endDate that is not today
+* "Quadradinho do Costa"
 * ???

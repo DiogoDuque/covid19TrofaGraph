@@ -10,7 +10,7 @@ const DefaultLineChart = ({ data, dateRange, label, theme, zeroBased }) => {
   const lastNEntries = getEntriesSince(dateRange, data);
   const min = Math.min(...lastNEntries.map(e=>e.count));
   const max = Math.max(...lastNEntries.map(e=>e.count));
-  const margin = Math.max((max - min)/20, zeroBased ? 4 : 2);
+  const margin = Math.max((max - min)/20, 2);
 
   const suggestedMax = Math.round(max + margin);
 

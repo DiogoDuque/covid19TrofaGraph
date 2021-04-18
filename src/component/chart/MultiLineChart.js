@@ -11,7 +11,7 @@ const MultiLineChart = ({ dataArray, dateRange, labels, themes, zeroBased }) => 
   const lastEntriesFlat = lastNEntriesArray.flatMap(eArr=>eArr.map(e=>e.count));
   const min = Math.min(...lastEntriesFlat);
   const max = Math.max(...lastEntriesFlat);
-  const offset = Math.max((max - min)/20, zeroBased ? 4 : 2);
+  const offset = Math.max((max - min)/20, 2);
 
   const suggestedMax = Math.round(max + offset);
 

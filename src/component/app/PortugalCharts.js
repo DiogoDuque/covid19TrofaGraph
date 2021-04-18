@@ -2,7 +2,7 @@ import React from "react";
 import { chartGroupWrapper } from "../../utils/chartUtils";
 import { smoothEntryValues, derivateEntryValues, getEntriesLineGenerator } from '../../utils/EntriesOps';
 import MultiLineChart from "../chart/MultiLineChart";
-import { themeRed, themeBlue, themeDark, themeGreyTransparent, severityTheme1 } from "../../config/themes";
+import { themeRed, themeBlue, themeBlueDark, themeDark, themeGreyTransparent, severityTheme1 } from "../../config/themes";
 import { KEY } from "../../model/EntriesAggregator";
 import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
@@ -37,6 +37,13 @@ const PortugalCharts = () => {
       dateRange={dateRange}
       labels={['Incidência em Portugal (p/ 100k hab.)', 'Tendência', 'Risco elevado']}
       themes={[themeBlue, themeGreyTransparent, severityTheme1]}
+    />,
+
+    <MultiLineChart
+      dataArray={[ptEntries.getAll(KEY.TRANSMISSIBILITY_PT), ptLineGenerator(1)]}
+      dateRange={dateRange}
+      labels={['Transmissibilidade (Rt) em Portugal', 'R(t)=1']}
+      themes={[themeBlueDark, severityTheme1]}
     />,
 
     <MultiLineChart
