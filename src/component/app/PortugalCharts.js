@@ -32,13 +32,12 @@ const PortugalCharts = () => {
 
     <MultiLineChart
       dataArray={[
-        ptEntries.getAll(KEY.INCIDENCE_PT), smoothEntryValues(ptEntries.getAll(KEY.INCIDENCE_PT)),
-        ptLineGenerator(120),
+        ptEntries.getAll(KEY.INCIDENCE_PT), smoothEntryValues(ptEntries.getAll(KEY.INCIDENCE_PT))
         
       ]}
       dateRange={dateRange}
-      labels={['Incidência em Portugal (p/ 100k hab.)', 'Tendência', 'Risco elevado']}
-      themes={[themeBlue, themeGreyTransparent, severityTheme1]}
+      labels={['Incidência em Portugal (p/ 100k hab.)', 'Tendência']}
+      themes={[themeBlue, themeGreyTransparent]}
     />,
 
     <MultiLineChart
