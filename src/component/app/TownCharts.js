@@ -44,7 +44,7 @@ const TownCharts = () => {
           dataArray={[
             townEntriesIncidence14,
             ptEntriesIncidence14,
-            townLineGenerator(120 * 14),
+            townLineGenerator(120),
           ]}
           dateRange={dateRange}
           labels={[
