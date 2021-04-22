@@ -36,7 +36,7 @@ const TownCharts = () => {
         options={Object.keys(allTownEntries)}
         value={currTown}
         renderInput={(params) => <TextField {...params} label="Cidade" variant="outlined" />}
-        onChange={(_e, value) => GeneralStore.update(s => { s.currentTown = value })}
+        onChange={(_e, value) => value && GeneralStore.update(s => { s.currentTown = value })}
       />
       { chartGroupWrapper(`Evolução - ${town}`, styles,
 
