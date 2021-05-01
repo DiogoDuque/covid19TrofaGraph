@@ -96,7 +96,13 @@ const App: () => JSX.Element = (): JSX.Element => {
     getVaccineData((e: EntriesAggregator<string, DateEntry>) => EntriesStore.update(s => { s.vaccineEntries = e }));
     getTownData(
       currTown,
-      (e: { [key: string]: EntriesAggregator<string, DateEntry> }) => EntriesStore.update(s => { s.townEntries = e })
+      (
+        entries: { [key: string]: EntriesAggregator<string, DateEntry> },
+        regionMap: { [key: string]: string }) =>
+        EntriesStore.update(s => {
+          s.townRegionMap = regionMap;
+          s.townEntries = entries;
+        })
     );
     // eslint-disable-next-line
   }, []);

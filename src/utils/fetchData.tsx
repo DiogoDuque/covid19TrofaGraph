@@ -43,18 +43,29 @@ function getDataFromSource(builder: EntriesAggregatorBuilder<string, DateEntry>,
 export function getTownData(town: string, callback: Function) {
   const filename = 'data_concelhos_new.csv';
   const townEntries: { [key: string]: EntriesAggregatorBuilder<string, DateEntry> } = {};
+  const townRegionMap: { [key: string]: string } = {};
+
+  const parseData = (_b: EntriesAggregatorBuilder<string, DateEntry>, data: any) => {
+    const town = data[KEY.TOWN];
+    const region = data[KEY.REGION];
+    if (!townEntries[town]) {
+      townEntries[town] = new EntriesAggregatorBuilder<string, DateEntry>(`${filename}:${town}`);
+      townRegionMap[town] = region;
+    }
+    defaultParseData(townEntries[town], data);
+  };
+
+  const onEnd = (_b: any) => callback(
+    Object.fromEntries(Object.entries(townEntries).map(
+      ([k, b]) => [k, b.build()]
+    )),
+    townRegionMap,
+  );
 
   getDataFromSource(
     new EntriesAggregatorBuilder(filename),
-    (_bldr: any) => callback(Object.fromEntries(Object.entries(townEntries).map(
-      ([k, b]) => [k, b.build()]
-    ))),
-    (_bldr: EntriesAggregatorBuilder<string, DateEntry>, data: any) => {
-      const town = data[KEY.TOWN];
-      if (!townEntries[town])
-        townEntries[town] = new EntriesAggregatorBuilder<string, DateEntry>(`${filename}:${town}`);
-      defaultParseData(townEntries[town], data);
-    }
+    onEnd,
+    parseData
   );
 }
 

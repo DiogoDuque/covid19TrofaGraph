@@ -97,10 +97,28 @@ export const KEY = {
   TOWN_INCIDENCE_14: 'incidencia',
   TOWN_CONFIRMED_14: 'confirmados_14',
   TOWN: 'concelho',
+  REGION: 'ars',
 
   //vacinas.csv
   VACCINE_DOSE_1: 'doses1',
   VACCINE_DOSE_2: 'doses2',
+}
+
+export function regionToKey(region: string) {
+  switch (region) {
+    case 'Norte':
+      return KEY.CONFIRMED_NORTH;
+    case 'Centro':
+      return KEY.CONFIRMED_CENTER;
+    case 'Lisboa e Vale do Tejo':
+      return KEY.CONFIRMED_LISBOA_TEJO;
+    case 'Alentejo':
+      return KEY.CONFIRMED_ALENTEJO;
+    case 'Algarve':
+      return KEY.CONFIRMED_ALGARVE;
+    default:
+      return '';
+  }
 }
 
 export default class EntriesAggregator<X, E extends Entry<X>> {

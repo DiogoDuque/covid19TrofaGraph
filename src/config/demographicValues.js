@@ -15,3 +15,20 @@ export const POPULATION_40_49 =     73098 + 770294;
 export const POPULATION_50_59 =     722360 + 677651;
 export const POPULATION_60_69 =     634741 + 551701;
 export const POPULATION_70_PLUS =   496438 + 961925;
+
+export function regionToPopulation(region) {
+  switch (region) {
+    case 'Norte':
+      return POPULATION_NORTH;
+    case 'Centro':
+      return POPULATION_CENTER;
+    case 'Lisboa e Vale do Tejo':
+      return POPULATION_LISBOA;
+    case 'Alentejo':
+      return POPULATION_ALENTEJO;
+    case 'Algarve':
+      return POPULATION_ALGARVE;
+    default:
+      return 0;
+  }
+}
