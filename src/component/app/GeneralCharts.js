@@ -8,7 +8,7 @@ import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
 import { POPULATION_PT } from "../../config/demographicValues";
 
-const vaccineEntryToPercentage = e => e.buildNewWith(e.x, parseFloat(Number(100 * e.y / POPULATION_PT).toFixed(2)));
+export const vaccineEntryToPercentage = e => e.buildNewWith(e.x, parseFloat(Number(100 * e.y / POPULATION_PT).toFixed(2)));
 
 const GeneralCharts = () => {
   const styles = GeneralStore.useState(s => s.styles);
