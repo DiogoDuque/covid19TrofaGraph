@@ -47,6 +47,7 @@ const PortugalCharts = () => {
       dateRange={dateRange}
       labels={['R(t) em Portugal Continental', 'R(t)=1']}
       themes={[themeBlueLightNoBG, severityTheme1]}
+      zeroBased={false}
     />,
 
     <MultiLineChart

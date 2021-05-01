@@ -24,20 +24,19 @@ const GeneralCharts = () => {
       dateRange={dateRange}
       label="Casos ativos em Portugal"
       theme={themeMagenta}
-      zeroBased={true}
     />,
     <MultiLineChart
       dataArray={[ptEntries.getAll(KEY.HOSPITALIZED_NURSERY), ptEntries.getAll(KEY.HOSPITALIZED_ICU)]}
       dateRange={dateRange}
       labels={["Internados em Enfermaria em Portugal", "Internados em UCI em Portugal"]}
       themes={[themeMagentaLight, themeMagentaDark]}
-      zeroBased={true}
     />,
     <MultiLineChart
       dataArray={[vaccine1Perc, vaccine2Perc]}
       dateRange={dateRange}
       labels={["% de vacinados com 1 dose", "% de vacinados com 2 doses"]}
       themes={[themeMagentaLight, themeMagentaDark]}
+      zeroBased={false}
     />,
   );
 }
