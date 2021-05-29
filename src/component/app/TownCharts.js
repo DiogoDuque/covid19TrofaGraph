@@ -14,7 +14,8 @@ import { regionToPopulation } from "../../config/demographicValues";
 const TownCharts = () => {
   const styles = GeneralStore.useState(s => s.styles);
   const currTown = GeneralStore.useState(s => s.currentTown);
-  const currRegion = EntriesStore.useState(s => s.townRegionMap[currTown]) || '';
+  const regionMap = EntriesStore.useState(s => s.townRegionMap);
+  const currRegion = regionMap[currTown];
   const allTownEntries = EntriesStore.useState(s => s.townEntries);
   const currTownEntries = allTownEntries[currTown];
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
