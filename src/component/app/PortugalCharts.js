@@ -1,6 +1,6 @@
 import React from "react";
 import { chartGroupWrapper } from "../../utils/chartUtils";
-import { smoothEntryValues, derivateEntryValues, getEntriesLineGenerator } from '../../utils/EntriesOps';
+import { smoothEntryValues, derivateEntryValues, getEntriesLineGenerator, convertDailyIncidencyToBiweeklyIncidency } from '../../utils/EntriesOps';
 import MultiLineChart from "../chart/MultiLineChart";
 import {
   themeRed, themeBlue, themeBlueLightNoBG, themeDark, themeGreyTransparent, severityTheme1
@@ -14,9 +14,15 @@ const PortugalCharts = () => {
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
   const dateRange = EntriesStore.useState(s => s.dateRange);
 
+  const ptEntriesIncidence = ptEntries.getAll(KEY.INCIDENCE_PT);
+  const ptEntriesIncidence14 = convertDailyIncidencyToBiweeklyIncidency(
+    ptEntriesIncidence,
+    ptEntriesIncidence.map(e => e.x),
+  );
+
   const deathEntries = derivateEntryValues(ptEntries.getAll(KEY.DEAD_PT));
 
-  const ptLineGenerator = getEntriesLineGenerator(ptEntries.getAll(KEY.INCIDENCE_PT));
+  const ptLineGenerator = getEntriesLineGenerator(ptEntriesIncidence);
 
   return chartGroupWrapper('Evolução em Portugal', styles,
 
@@ -31,13 +37,10 @@ const PortugalCharts = () => {
     />,
 
     <MultiLineChart
-      dataArray={[
-        ptEntries.getAll(KEY.INCIDENCE_PT), smoothEntryValues(ptEntries.getAll(KEY.INCIDENCE_PT))
-        
-      ]}
+      dataArray={[ptEntriesIncidence14]}
       dateRange={dateRange}
-      labels={['Incidência em Portugal (p/ 100k hab.)', 'Tendência']}
-      themes={[themeBlue, themeGreyTransparent]}
+      labels={['Incidência em Portugal (a 14d p/ 100k hab.)']}
+      themes={[themeBlue]}
     />,
 
     <MultiLineChart
