@@ -4,7 +4,8 @@ import { KEY } from '../../model/EntriesAggregator';
 import InfoCard from '../card/InfoCard';
 import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
-import { vaccineEntryToPercentage } from './GeneralCharts';
+
+const vaccineEntryToPercentage = e => e.buildNewWith(e.x, parseFloat(Number(100 * e.y / POPULATION_PT).toFixed(2)));
 
 const SummaryCards = () => {
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
