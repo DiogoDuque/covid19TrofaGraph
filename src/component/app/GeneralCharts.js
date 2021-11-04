@@ -6,7 +6,6 @@ import { themeMagenta, themeMagentaDark, themeMagentaLight } from "../../config/
 import { KEY } from "../../model/EntriesAggregator";
 import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
-import { POPULATION_PT } from "../../config/demographicValues";
 
 const GeneralCharts = () => {
   const styles = GeneralStore.useState(s => s.styles);
