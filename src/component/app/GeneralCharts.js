@@ -31,13 +31,6 @@ const GeneralCharts = () => {
       labels={["Internados em Enfermaria em Portugal", "Internados em UCI em Portugal"]}
       themes={[themeMagentaLight, themeMagentaDark]}
     />,
-    <MultiLineChart
-      dataArray={[vaccine1Perc, vaccine2Perc]}
-      dateRange={dateRange}
-      labels={["% de vacinados com 1 dose", "% de vacinados com 2 doses"]}
-      themes={[themeMagentaLight, themeMagentaDark]}
-      zeroBased={false}
-    />,
   );
 }
 
