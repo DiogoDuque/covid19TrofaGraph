@@ -8,15 +8,10 @@ import EntriesStore from "../../store/EntriesStore";
 import GeneralStore from "../../store/GeneralStore";
 import { POPULATION_PT } from "../../config/demographicValues";
 
-export const vaccineEntryToPercentage = e => e.buildNewWith(e.x, parseFloat(Number(100 * e.y / POPULATION_PT).toFixed(2)));
-
 const GeneralCharts = () => {
   const styles = GeneralStore.useState(s => s.styles);
   const ptEntries = EntriesStore.useState(s => s.portugalEntries);
-  const vaccineEntries = EntriesStore.useState(s => s.vaccineEntries);
   const dateRange = EntriesStore.useState(s => s.dateRange);
-  const vaccine1Perc = vaccineEntries.getAll(KEY.VACCINE_DOSE_1).map(vaccineEntryToPercentage);
-  const vaccine2Perc = vaccineEntries.getAll(KEY.VACCINE_DOSE_2).map(vaccineEntryToPercentage);
 
   return chartGroupWrapper('Casos ativos', styles,
     <DefaultLineChart
